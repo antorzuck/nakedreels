@@ -1,0 +1,425 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<section class="py-10 px-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Trending Now</h2>
+        <a href="#" class="text-primary hover:underline flex items-center">
+          View All <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <!-- Reel Card 1 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@creator1</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">This is an amazing dance reel that everyone is talking about</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>2.4k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 2 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@creator2</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">Check out this incredible travel adventure in Bali</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>1.8k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 3 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@creator3</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">How to make the perfect pasta in under 10 minutes</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>3.2k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 4 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@creator4</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">The most satisfying art process you'll see today</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>5.7k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 5 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@creator5</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">Workout routine that will transform your body in 30 days</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>4.1k views</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Popular Categories -->
+  <section class="py-10 px-4 bg-dark-lighter">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-bold mb-6">Popular Categories</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Category 1 -->
+        <div class="bg-dark rounded-xl overflow-hidden group relative">
+          <div class="aspect-video bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=200&width=350" alt="Music category" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+            <div>
+              <i data-lucide="music" class="w-6 h-6 text-primary mb-2"></i>
+              <h3 class="text-lg font-semibold">Music</h3>
+              <p class="text-sm text-gray-300">1.2k reels</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Category 2 -->
+        <div class="bg-dark rounded-xl overflow-hidden group relative">
+          <div class="aspect-video bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=200&width=350" alt="Comedy category" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+            <div>
+              <i data-lucide="smile" class="w-6 h-6 text-primary mb-2"></i>
+              <h3 class="text-lg font-semibold">Comedy</h3>
+              <p class="text-sm text-gray-300">2.5k reels</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Category 3 -->
+        <div class="bg-dark rounded-xl overflow-hidden group relative">
+          <div class="aspect-video bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=200&width=350" alt="Travel category" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+            <div>
+              <i data-lucide="map" class="w-6 h-6 text-primary mb-2"></i>
+              <h3 class="text-lg font-semibold">Travel</h3>
+              <p class="text-sm text-gray-300">1.8k reels</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Category 4 -->
+        <div class="bg-dark rounded-xl overflow-hidden group relative">
+          <div class="aspect-video bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=200&width=350" alt="Food category" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+            <div>
+              <i data-lucide="utensils" class="w-6 h-6 text-primary mb-2"></i>
+              <h3 class="text-lg font-semibold">Food</h3>
+              <p class="text-sm text-gray-300">3.4k reels</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Featured Creators -->
+  <section class="py-10 px-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">Featured Creators</h2>
+        <a href="#" class="text-primary hover:underline flex items-center">
+          View All <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <!-- Creator 1 -->
+        <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
+          <div class="w-20 h-20 mx-auto rounded-full bg-primary flex items-center justify-center mb-3">
+            <i data-lucide="user" class="w-10 h-10 text-dark"></i>
+          </div>
+          <h3 class="font-semibold">@creator1</h3>
+          <p class="text-sm text-gray-400">2.4M followers</p>
+          <button class="mt-3 w-full py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+            Follow
+          </button>
+        </div>
+        
+        <!-- Creator 2 -->
+        <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
+          <div class="w-20 h-20 mx-auto rounded-full bg-primary flex items-center justify-center mb-3">
+            <i data-lucide="user" class="w-10 h-10 text-dark"></i>
+          </div>
+          <h3 class="font-semibold">@creator2</h3>
+          <p class="text-sm text-gray-400">1.8M followers</p>
+          <button class="mt-3 w-full py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+            Follow
+          </button>
+        </div>
+        
+        <!-- Creator 3 -->
+        <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
+          <div class="w-20 h-20 mx-auto rounded-full bg-primary flex items-center justify-center mb-3">
+            <i data-lucide="user" class="w-10 h-10 text-dark"></i>
+          </div>
+          <h3 class="font-semibold">@creator3</h3>
+          <p class="text-sm text-gray-400">3.2M followers</p>
+          <button class="mt-3 w-full py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+            Follow
+          </button>
+        </div>
+        
+        <!-- Creator 4 -->
+        <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
+          <div class="w-20 h-20 mx-auto rounded-full bg-primary flex items-center justify-center mb-3">
+            <i data-lucide="user" class="w-10 h-10 text-dark"></i>
+          </div>
+          <h3 class="font-semibold">@creator4</h3>
+          <p class="text-sm text-gray-400">5.7M followers</p>
+          <button class="mt-3 w-full py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+            Follow
+          </button>
+        </div>
+        
+        <!-- Creator 5 -->
+        <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
+          <div class="w-20 h-20 mx-auto rounded-full bg-primary flex items-center justify-center mb-3">
+            <i data-lucide="user" class="w-10 h-10 text-dark"></i>
+          </div>
+          <h3 class="font-semibold">@creator5</h3>
+          <p class="text-sm text-gray-400">4.1M followers</p>
+          <button class="mt-3 w-full py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+            Follow
+          </button>
+        </div>
+        
+        <!-- Creator 6 -->
+        <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
+          <div class="w-20 h-20 mx-auto rounded-full bg-primary flex items-center justify-center mb-3">
+            <i data-lucide="user" class="w-10 h-10 text-dark"></i>
+          </div>
+          <h3 class="font-semibold">@creator6</h3>
+          <p class="text-sm text-gray-400">1.5M followers</p>
+          <button class="mt-3 w-full py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+            Follow
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- For You Section (Additional content) -->
+  <section class="py-10 px-4">
+    <div class="container mx-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold">For You</h2>
+        <a href="#" class="text-primary hover:underline flex items-center">
+          Refresh <i data-lucide="refresh-cw" class="w-4 h-4 ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <!-- Reel Card 1 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@user1</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">Top 5 productivity hacks that changed my life</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>1.2k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 2 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@user2</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">The most beautiful sunset you'll ever see</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>3.5k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 3 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@user3</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">DIY home decor ideas that cost under $20</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>2.7k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 4 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@user4</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">Easy 5-minute morning routine for productivity</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>4.3k views</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Reel Card 5 (Updated layout) -->
+        <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+          <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+            <img src="/placeholder.svg?height=400&width=225" alt="Reel thumbnail" class="w-full h-full object-cover transition-transform duration-300">
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                  <i data-lucide="user" class="w-4 h-4 text-dark"></i>
+                </div>
+                <span class="ml-2 text-sm font-medium">@user5</span>
+              </div>
+            </div>
+          </div>
+          <!-- Title and views at bottom -->
+          <div class="p-2">
+            <h3 class="text-sm font-medium line-clamp-2">Life hacks that will blow your mind</h3>
+            <div class="flex items-center mt-1 text-xs text-gray-400">
+              <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+              <span>6.8k views</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+
+{% endblock %}

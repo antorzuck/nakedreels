@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Naked Reels - Share Your Reels</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  {% block head %}
+  {% endblock %}
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FF9500',
+            secondary: '#FF7A00',
+            dark: '#121212',
+            'dark-lighter': '#1E1E1E',
+            'dark-light': '#2D2D2D'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .sidebar-transition {
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .reel-card:hover .reel-overlay {
+      opacity: 1;
+    }
+    
+    .reel-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    /* Custom scrollbar - now dark */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #1E1E1E;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #2D2D2D;
+      border-radius: 10px;
+    }
+
+    {% block css %}
+    {% endblock %}
+  </style>
+</head>
+<body class="bg-dark text-white dark">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-dark-lighter transform -translate-x-full md:translate-x-0 sidebar-transition">
+      <div class="flex flex-col h-full">
+        <!-- Logo -->
+        <div class="p-4 flex justify-center">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-16">
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+          <a href="#" class="flex items-center px-4 py-3 text-white bg-dark-light rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="home" class="w-5 h-5 mr-3"></i>
+            <span>Home</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="trending-up" class="w-5 h-5 mr-3"></i>
+            <span>Trending</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="compass" class="w-5 h-5 mr-3"></i>
+            <span>Explore</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="bookmark" class="w-5 h-5 mr-3"></i>
+            <span>Saved</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+            <span>Following</span>
+          </a>
+          
+          <div class="pt-6 pb-2">
+            <div class="px-4 text-xs font-semibold text-gray-400 uppercase">Categories</div>
+          </div>
+          
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="music" class="w-5 h-5 mr-3"></i>
+            <span>Music</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="film" class="w-5 h-5 mr-3"></i>
+            <span>Entertainment</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="shopping-bag" class="w-5 h-5 mr-3"></i>
+            <span>Shopping</span>
+          </a>
+          <a href="#" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="utensils" class="w-5 h-5 mr-3"></i>
+            <span>Food</span>
+          </a>
+        </nav>
+        
+        <!-- User Section -->
+        <div class="p-4 border-t border-dark-light">
+          <a href="#" class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+              <i data-lucide="user" class="w-6 h-6 text-dark"></i>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm font-medium">Sign In</p>
+              <p class="text-xs text-gray-400">Create your account</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 md:ml-64 transition-all duration-300">
+      <!-- Header -->
+      <header class="sticky top-0 z-30 bg-dark-lighter shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+          <!-- Sidebar Toggle (moved to navbar left) -->
+          
+          <div class="flex justify-between items-center">
+          <button id="sidebarToggle" class="p-2 rounded-full hover:bg-dark-light md:hidden m-auto">
+            <i data-lucide="layout-grid" class="w-6 h-6"></i>
+          </button>
+          
+          <!-- Mobile Logo -->
+          <div class="md:hidden">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-10 m-auto">
+          </div>
+          </div>
+          
+          <!-- Search Bar -->
+          <div class="hidden md:flex items-center flex-1 max-w-xl mx-auto">
+            <div class="relative w-full">
+              <input type="text" placeholder="Search reels..." class="w-full py-2 pl-10 pr-4 bg-dark-light rounded-full focus:outline-none focus:ring-2 focus:ring-primary">
+              <i data-lucide="search" class="absolute left-3 top-2.5 w-5 h-5 text-gray-400"></i>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex items-center space-x-4">
+            <button class="p-2 rounded-full hover:bg-dark-light">
+              <i data-lucide="bell" class="w-6 h-6"></i>
+            </button>
+            <button class="p-2 rounded-full hover:bg-dark-light">
+              <i data-lucide="message-circle" class="w-6 h-6"></i>
+            </button>
+            <button class="hidden md:flex items-center px-4 py-2 bg-primary text-dark rounded-full hover:bg-secondary transition-colors">
+              <i data-lucide="plus" class="w-5 h-5 mr-1"></i>
+              <span class="font-medium">Upload</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+
+      {% block body %}
+
+      {% endblock %}
+
+    
+      
+      <!-- Footer -->
+      <footer class="bg-dark-lighter py-10 px-4">
+        <div class="container mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+            <!-- Logo -->
+            <div class="mb-6 md:mb-0">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-12">
+            </div>
+            
+            <!-- Links -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div>
+                <h3 class="font-semibold mb-3">Company</h3>
+                <ul class="space-y-2">
+                  <li><a href="#" class="text-gray-400 hover:text-primary">About Us</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Careers</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Press</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Blog</a></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold mb-3">Support</h3>
+                <ul class="space-y-2">
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Help Center</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Safety Center</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Community</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Creator Resources</a></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold mb-3">Legal</h3>
+                <ul class="space-y-2">
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Terms of Service</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Privacy Policy</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Cookie Policy</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Intellectual Property</a></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h3 class="font-semibold mb-3">Download</h3>
+                <ul class="space-y-2">
+                  <li><a href="#" class="text-gray-400 hover:text-primary">iOS App</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Android App</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">Windows</a></li>
+                  <li><a href="#" class="text-gray-400 hover:text-primary">MacOS</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Social Links -->
+          <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-dark-light">
+            <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 Naked Reels. All rights reserved.</p>
+            <div class="flex space-x-4">
+              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
+                <i data-lucide="facebook" class="w-5 h-5"></i>
+              </a>
+              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
+                <i data-lucide="twitter" class="w-5 h-5"></i>
+              </a>
+              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
+                <i data-lucide="instagram" class="w-5 h-5"></i>
+              </a>
+              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
+                <i data-lucide="youtube" class="w-5 h-5"></i>
+              </a>
+              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
+                <i data-lucide="tiktok" class="w-5 h-5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Initialize Lucide Icons -->
+   {% block js %}
+   {% endblock %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      lucide.createIcons();
+      
+      // Mobile sidebar toggle
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      
+      sidebarToggle.addEventListener('click', function() {
+        if (sidebar.classList.contains('-translate-x-full')) {
+          sidebar.classList.remove('-translate-x-full');
+          sidebar.classList.add('translate-x-0');
+        } else {
+          sidebar.classList.remove('translate-x-0');
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
