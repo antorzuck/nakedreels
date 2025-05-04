@@ -75,7 +75,7 @@ position: relative;
     <!-- Video Player -->
     <div class="video-wrapper">
       <video id="player" playsinline controls poster="{{ video.poster_url }}">
-        <source src="{{ video.video_url }}" type="video/mp4" />
+        <source src="{{ video.video_file.url }}" type="video/mp4" />
       </video>
     </div>
 
@@ -88,7 +88,7 @@ position: relative;
             <i data-lucide="user" class="w-6 h-6 text-dark"></i>
           </div>
           <div class="ml-3">
-            <p class="font-medium">@{{ video.creator.username }}</p>
+            <p class="font-medium">@{{ video.profile.user.username }}</p>
             <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }} followers</p>
           </div>
         </div>
@@ -110,8 +110,9 @@ position: relative;
           Posted {{ video.created_at|timesince }} ago
         </span>
       </div>
+
       <!-- Action Buttons -->
-      <div class="flex items-center gap-4 mt-4 sm:mt-0">
+      <div class="flex  gap-4 mt-4 sm:mt-0">
         <button class="flex items-center gap-1 hover:text-primary">
           <i data-lucide="heart" class="w-5 h-5"></i><span>Like</span>
         </button>
@@ -135,13 +136,13 @@ position: relative;
           {% for comment in comments %}
           <li class="border-b border-dark-light pb-4">
             <div class="flex items-center space-x-3">
-              <img src="{{ comment.profile.user.profile_picture.url }}" alt="Profile" class="w-10 h-10 rounded-full">
+              <img src="{{ comment.profile.avatar.url }}" alt="Profile" class="w-10 h-10 rounded-full">
               <div class="text-sm">
                 <p class="font-medium">{{ comment.profile.user.username }}</p>
                 <p class="text-gray-400">{{ comment.created_at|timesince }} ago</p>
               </div>
             </div>
-            <p class="mt-2">{{ comment.content }}</p>
+            <p class="mt-2">{{ comment.text }}</p>
           </li>
           {% endfor %}
         </ul>

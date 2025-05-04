@@ -16,7 +16,7 @@ class BaseModel(models.Model):
 class Profile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True)
+    avatar = models.FileField(upload_to='avatars/', blank=True)
 
     def __str__(self):
         return self.user.username
@@ -54,7 +54,7 @@ class Video(BaseModel):
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
     video_file = models.FileField(upload_to='videos/')
-    thumbnail = models.ImageField(upload_to='thumbnails/', blank=True, null=True)
+    thumbnail = models.FileField(upload_to='thumbnails/', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True, null=True)
 
