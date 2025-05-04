@@ -52,7 +52,7 @@ position: relative;
 /* Extra large screens */
 @media (min-width: 1280px) {
 .video-wrapper {
-  height: 650px;
+  height: 550px;
 }
 }
 
@@ -64,322 +64,113 @@ position: relative;
  video {
    height: 100% !important;
    width: 100%;
-   object-fit: cover;
+   object-fit: contain;
  }
 {% endblock %}
 
-
 {% block body %}
- <!-- Video Content Area -->
- <div class="container mx-auto px-4 py-6">
-    <div class="flex flex-col lg:flex-col gap-6">
-      <!-- Main Video Column -->
-      
-      
-      
-      
-      
-  <div class="video-wrapper">
-    <video id="player" playsinline controls poster="https://leaksgram.com/media/thumbnails/pussy-pussy-lips-wet-pussy-porn-gif-by-wa_dexey_6gADtc8.jpg">
-  
-      <source src="https://leaksgram.com/media/videos/pussy-pussy-lips-wet-pussy-porn-gif-by-wa_dexey_compressed_fYC4z29.mp4" type="video/mp4" />
-    </video>
-  </div>
-      
-      
-      
-      
-        
-        <!-- Video Info -->
-        <div class="mt-4">
-          <h1 class="text-xl md:text-2xl font-bold">This is an amazing dance reel that everyone is talking about</h1>
-          <div class="flex items-center justify-between mt-4">
-            <div class="flex items-center">
-              <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                <i data-lucide="user" class="w-6 h-6 text-dark"></i>
-              </div>
-              <div class="ml-3">
-                <p class="font-medium">@creator1</p>
-                <p class="text-sm text-gray-400">2.4M followers</p>
-              </div>
-            </div>
-            <button class="px-4 py-2 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
-              Follow
-            </button>
+<div class="container mx-auto px-4 py-6">
+  <div class="flex flex-col lg:flex-col gap-6">
+
+    <!-- Video Player -->
+    <div class="video-wrapper">
+      <video id="player" playsinline controls poster="{{ video.poster_url }}">
+        <source src="{{ video.video_url }}" type="video/mp4" />
+      </video>
+    </div>
+
+    <!-- Video Info -->
+    <div class="mt-4">
+      <h1 class="text-xl md:text-2xl font-bold">{{ video.title }}</h1>
+      <div class="flex items-center justify-between mt-4">
+        <div class="flex items-center">
+          <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
+            <i data-lucide="user" class="w-6 h-6 text-dark"></i>
+          </div>
+          <div class="ml-3">
+            <p class="font-medium">@{{ video.creator.username }}</p>
+            <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }} followers</p>
           </div>
         </div>
-        
-        <!-- Video Stats and Actions -->
-        <div class="flex flex-wrap items-center justify-between mt-6 pb-6 border-b border-dark-light">
-          <div class="flex items-center gap-2 text-sm text-gray-400">
-            <span class="flex items-center">
-              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-              2.4M views
-            </span>
-            <span class="flex items-center">
-              <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
-              Posted 2 days ago
-            </span>
-          </div>
-          
-          <div class="flex items-center gap-4 mt-4 sm:mt-0">
-            <button class="flex items-center gap-1 hover:text-primary">
-              <i data-lucide="heart" class="w-5 h-5"></i>
-              <span>124K</span>
-            </button>
-            <button class="flex items-center gap-1 hover:text-primary">
-              <i data-lucide="message-circle" class="w-5 h-5"></i>
-              <span>3.2K</span>
-            </button>
-            <button class="flex items-center gap-1 hover:text-primary">
-              <i data-lucide="bookmark" class="w-5 h-5"></i>
-              <span>Save</span>
-            </button>
-            <button class="flex items-center gap-1 hover:text-primary">
-              <i data-lucide="share-2" class="w-5 h-5"></i>
-              <span>Share</span>
-            </button>
-          </div>
-        </div>
-        
-        <!-- Video Description -->
-        <div class="py-6 border-b border-dark-light">
-          <div class="bg-dark-lighter p-4 rounded-lg">
-            <p class="text-gray-300">
-              Check out this amazing dance routine I've been working on for the past month! 💃 This choreography is inspired by the latest trends and I've added my own twist to it. Let me know what you think in the comments below!
-            </p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span class="px-2 py-1 bg-dark rounded-full text-xs text-gray-300">#dance</span>
-              <span class="px-2 py-1 bg-dark rounded-full text-xs text-gray-300">#choreography</span>
-              <span class="px-2 py-1 bg-dark rounded-full text-xs text-gray-300">#trending</span>
-              <span class="px-2 py-1 bg-dark rounded-full text-xs text-gray-300">#viral</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Comments Section -->
-        <div class="py-6">
-          <h2 class="text-lg font-semibold mb-4">Comments (3.2K)</h2>
-          
-          <!-- Comment Input -->
-          <div class="flex gap-3 mb-6">
-            <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 flex items-center justify-center">
-              <i data-lucide="user" class="w-5 h-5 text-dark"></i>
-            </div>
-            <div class="flex-1">
-              <input type="text" placeholder="Add a comment..." class="w-full bg-dark-light rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary">
-              <div class="flex justify-end mt-2">
-                <button class="px-4 py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
-                  Comment
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Comments List -->
-          <div class="space-y-6">
-            <!-- Comment 1 -->
-            <div class="flex gap-3">
-              <div class="w-10 h-10 rounded-full bg-dark-light flex-shrink-0 flex items-center justify-center">
-                <i data-lucide="user" class="w-5 h-5"></i>
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-medium">@user123</span>
-                  <span class="text-xs text-gray-400">2 days ago</span>
-                </div>
-                <p class="mt-1 text-gray-300">This is absolutely amazing! Your moves are so clean and the transitions are perfect. Can you please do a tutorial on this?</p>
-                <div class="flex items-center gap-4 mt-2 text-sm text-gray-400">
-                  <button class="flex items-center gap-1 hover:text-primary">
-                    <i data-lucide="heart" class="w-4 h-4"></i>
-                    <span>245</span>
-                  </button>
-                  <button class="hover:text-primary">Reply</button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Comment 2 -->
-            <div class="flex gap-3">
-              <div class="w-10 h-10 rounded-full bg-dark-light flex-shrink-0 flex items-center justify-center">
-                <i data-lucide="user" class="w-5 h-5"></i>
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-medium">@dancefan</span>
-                  <span class="text-xs text-gray-400">1 day ago</span>
-                </div>
-                <p class="mt-1 text-gray-300">I've been following your content for months and this is by far your best work! The energy is contagious 🔥</p>
-                <div class="flex items-center gap-4 mt-2 text-sm text-gray-400">
-                  <button class="flex items-center gap-1 hover:text-primary">
-                    <i data-lucide="heart" class="w-4 h-4"></i>
-                    <span>189</span>
-                  </button>
-                  <button class="hover:text-primary">Reply</button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Comment 3 -->
-            <div class="flex gap-3">
-              <div class="w-10 h-10 rounded-full bg-dark-light flex-shrink-0 flex items-center justify-center">
-                <i data-lucide="user" class="w-5 h-5"></i>
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-medium">@musiclover</span>
-                  <span class="text-xs text-gray-400">12 hours ago</span>
-                </div>
-                <p class="mt-1 text-gray-300">What's the name of this song? It's so catchy!</p>
-                <div class="flex items-center gap-4 mt-2 text-sm text-gray-400">
-                  <button class="flex items-center gap-1 hover:text-primary">
-                    <i data-lucide="heart" class="w-4 h-4"></i>
-                    <span>76</span>
-                  </button>
-                  <button class="hover:text-primary">Reply</button>
-                </div>
-                
-                <!-- Reply -->
-                <div class="flex gap-3 mt-4">
-                  <div class="w-8 h-8 rounded-full bg-primary flex-shrink-0 flex items-center justify-center">
-                    <i data-lucide="user" class="w-4 h-4 text-dark"></i>
-                  </div>
-                  <div>
-                    <div class="flex items-center gap-2">
-                      <span class="font-medium">@creator1</span>
-                      <span class="text-xs text-gray-400">10 hours ago</span>
-                    </div>
-                    <p class="mt-1 text-gray-300">It's "Dance With Me" by DJ Rhythm! I've linked it in my bio 🎵</p>
-                    <div class="flex items-center gap-4 mt-2 text-sm text-gray-400">
-                      <button class="flex items-center gap-1 hover:text-primary">
-                        <i data-lucide="heart" class="w-4 h-4"></i>
-                        <span>42</span>
-                      </button>
-                      <button class="hover:text-primary">Reply</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Show More Comments -->
-            <button class="w-full py-3 bg-dark-light rounded-lg text-center hover:bg-dark-lighter transition-colors">
-              Show more comments
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Sidebar - Related Videos -->
-      <div class="w-full lg:w-4/12">
-        <h2 class="text-lg font-semibold mb-4">Up Next</h2>
-        
-        <div class="space-y-4">
-          <!-- Related Video 1 -->
-          <div class="flex gap-3 group">
-            <div class="w-40 h-24 bg-dark-light rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/placeholder.svg?height=150&width=250" alt="Related video thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium line-clamp-2 group-hover:text-primary transition-colors">Top 10 dance moves you need to learn this summer</h3>
-              <p class="text-sm text-gray-400 mt-1">@dancemaster</p>
-              <div class="flex items-center text-xs text-gray-400 mt-1">
-                <span>1.2M views</span>
-                <span class="mx-1">•</span>
-                <span>1 week ago</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Related Video 2 -->
-          <div class="flex gap-3 group">
-            <div class="w-40 h-24 bg-dark-light rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/placeholder.svg?height=150&width=250" alt="Related video thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium line-clamp-2 group-hover:text-primary transition-colors">Behind the scenes of my latest choreography</h3>
-              <p class="text-sm text-gray-400 mt-1">@creator1</p>
-              <div class="flex items-center text-xs text-gray-400 mt-1">
-                <span>856K views</span>
-                <span class="mx-1">•</span>
-                <span>3 days ago</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Related Video 3 -->
-          <div class="flex gap-3 group">
-            <div class="w-40 h-24 bg-dark-light rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/placeholder.svg?height=150&width=250" alt="Related video thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium line-clamp-2 group-hover:text-primary transition-colors">How I create viral dance reels - my creative process</h3>
-              <p class="text-sm text-gray-400 mt-1">@viralcreator</p>
-              <div class="flex items-center text-xs text-gray-400 mt-1">
-                <span>2.4M views</span>
-                <span class="mx-1">•</span>
-                <span>2 weeks ago</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Related Video 4 -->
-          <div class="flex gap-3 group">
-            <div class="w-40 h-24 bg-dark-light rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/placeholder.svg?height=150&width=250" alt="Related video thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium line-clamp-2 group-hover:text-primary transition-colors">Dance collaboration with @dancepro - epic moves!</h3>
-              <p class="text-sm text-gray-400 mt-1">@creator2</p>
-              <div class="flex items-center text-xs text-gray-400 mt-1">
-                <span>987K views</span>
-                <span class="mx-1">•</span>
-                <span>5 days ago</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Related Video 5 -->
-          <div class="flex gap-3 group">
-            <div class="w-40 h-24 bg-dark-light rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/placeholder.svg?height=150&width=250" alt="Related video thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium line-clamp-2 group-hover:text-primary transition-colors">Beginner friendly dance tutorial - learn in 10 minutes</h3>
-              <p class="text-sm text-gray-400 mt-1">@danceteacher</p>
-              <div class="flex items-center text-xs text-gray-400 mt-1">
-                <span>1.5M views</span>
-                <span class="mx-1">•</span>
-                <span>1 month ago</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Related Video 6 -->
-          <div class="flex gap-3 group">
-            <div class="w-40 h-24 bg-dark-light rounded-lg overflow-hidden flex-shrink-0">
-              <img src="/placeholder.svg?height=150&width=250" alt="Related video thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            </div>
-            <div class="flex-1">
-              <h3 class="font-medium line-clamp-2 group-hover:text-primary transition-colors">The evolution of dance trends in the last decade</h3>
-              <p class="text-sm text-gray-400 mt-1">@dancehistorian</p>
-              <div class="flex items-center text-xs text-gray-400 mt-1">
-                <span>3.2M views</span>
-                <span class="mx-1">•</span>
-                <span>3 months ago</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Show More -->
-          <button class="w-full py-3 bg-dark-light rounded-lg text-center hover:bg-dark-lighter transition-colors">
-            Show more videos
-          </button>
-        </div>
+        <button class="px-4 py-2 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+          Follow
+        </button>
       </div>
     </div>
+
+    <!-- Video Stats -->
+    <div class="flex flex-wrap items-center justify-between mt-6 pb-6 border-b border-dark-light">
+      <div class="flex items-center gap-2 text-sm text-gray-400">
+        <span class="flex items-center">
+          <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+          {{ video.views }} views
+        </span>
+        <span class="flex items-center">
+          <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+          Posted {{ video.created_at|timesince }} ago
+        </span>
+      </div>
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-4 mt-4 sm:mt-0">
+        <button class="flex items-center gap-1 hover:text-primary">
+          <i data-lucide="heart" class="w-5 h-5"></i><span>Like</span>
+        </button>
+        <!-- Other buttons -->
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="py-6 border-b border-dark-light">
+      <div class="bg-dark-lighter p-4 rounded-lg">
+        <p class="text-gray-300">{{ video.description|linebreaksbr }}</p>
+        <!-- Optional: hashtags -->
+      </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section mt-6">
+      <h3 class="text-lg font-bold">Comments</h3>
+      {% if comments %}
+        <ul class="space-y-4 mt-4">
+          {% for comment in comments %}
+          <li class="border-b border-dark-light pb-4">
+            <div class="flex items-center space-x-3">
+              <img src="{{ comment.profile.user.profile_picture.url }}" alt="Profile" class="w-10 h-10 rounded-full">
+              <div class="text-sm">
+                <p class="font-medium">{{ comment.profile.user.username }}</p>
+                <p class="text-gray-400">{{ comment.created_at|timesince }} ago</p>
+              </div>
+            </div>
+            <p class="mt-2">{{ comment.content }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-gray-500">No comments yet.</p>
+      {% endif %}
+    </div>
+
+    <!-- Related Videos Section -->
+    <div class="up-next-videos mt-6">
+      <h3 class="text-lg font-bold">Up Next</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+        {% for up_video in up_next_videos %}
+        <div class="video-item">
+          <a href="{% url 'video_get' slug=up_video.slug %}">
+            <img src="{{ up_video.poster_url }}" alt="{{ up_video.title }}" class="w-full rounded-lg">
+            <div class="mt-2">
+              <p class="font-medium">{{ up_video.title }}</p>
+              <p class="text-sm text-gray-400">{{ up_video.views }} views</p>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
   </div>
-  
+</div>
+
 
   {% block js %}
 
@@ -403,7 +194,7 @@ position: relative;
   const adsLoader = new google.ima.AdsLoader(adDisplayContainer);
   const adsRequest = new google.ima.AdsRequest();
   
-  adsRequest.adTagUrl = 'https://vast.yomeno.xyz/vast?spot_id=1425335'; // Replace with real VAST tag
+  adsRequest.adTagUrl = 'https://vast.yomeno.xyz/vast?spot_id='; // Replace with real VAST tag 1425335
   
   adsLoader.addEventListener(
     google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,

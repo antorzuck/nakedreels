@@ -7,5 +7,7 @@ from base.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
-    path('video', video)
+    path('video', v),
+    path('category/<slug:slug>/', category_view, name='category'),
+    path('search/', search_video_view, name='search'),
 ]
