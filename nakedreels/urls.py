@@ -8,7 +8,11 @@ from base.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
-    path('video/<str:slug>', video_get),
+    path('video/<str:slug>', video_get, name='video_detail'),
     path('category/<slug:slug>/', category_view, name='category'),
     path('search/', search_video_view, name='search'),
+    path('profile/<str:username>/', user_profile, name='user_profile'),
+    path('api/check_or_create_profile/', check_or_create_profile, name='check_or_create_profile'),
+    path('api/upload_video/', upload_video, name='upload_video'),
+  
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

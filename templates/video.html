@@ -69,106 +69,172 @@ position: relative;
 {% endblock %}
 
 {% block body %}
-<div class="container mx-auto px-4 py-6">
-  <div class="flex flex-col lg:flex-col gap-6">
+<div class="container mx-auto px-4 py-6 max-w-7xl">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content Column -->
+    <div class="lg:col-span-2">
+      <!-- Video Player -->
+      <div class="video-wrapper w-full rounded-lg overflow-hidden shadow-lg">
+        <video 
+          preload="metadata" 
+          id="player" 
+          playsinline 
+          controls 
+          poster="{{ video.thumbnail.url }}"
+          class="w-full aspect-video object-cover"
+        >
+          <source src="{{ video.video_file.url }}" type="video/mp4" />
+        </video>
+      </div>
 
-    <!-- Video Player -->
-    <div class="video-wrapper">
-      <video preload="metadata" id="player" playsinline controls poster="{{ video.thumbnail.url }}">
-        <source src="{{ video.video_file.url }}" type="video/mp4" />
-      </video>
-    </div>
-
-    <!-- Video Info -->
-    <div class="mt-4">
-      <h1 class="text-xl md:text-2xl font-bold">{{ video.title }}</h1>
-      <div class="flex items-center justify-between mt-4">
-        <div class="flex items-center">
-          <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-            <i data-lucide="user" class="w-6 h-6 text-dark"></i>
+      <!-- Video Info -->
+      <div class="mt-4">
+        <h1 class="text-xl md:text-3xl font-bold">{{ video.title }}</h1>
+        <div class="flex items-center justify-between mt-4 gap-4">
+          <div class="flex items-center">
+            <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-md">
+              <i data-lucide="user" class="w-7 h-7 text-dark"></i>
+            </div>
+            <div class="ml-3">
+              <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
+              <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }} followers</p>
+            </div>
           </div>
-          <div class="ml-3">
-            <p class="font-medium">@{{ video.profile.user.username }}</p>
-            <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }} followers</p>
+          <button class="px-6 py-2.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
+            Follow
+          </button>
+        </div>
+      </div>
+
+      <!-- Replace the Video Stats section with this improved version -->
+      <!-- Video Stats -->
+      <div class="mt-6 pb-6 border-b border-dark-light">
+        <!-- Stats and timestamps - Full width on mobile -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div class="flex items-center gap-4 text-sm text-gray-400">
+            <span class="flex items-center">
+              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+              {{ video.views }} views
+            </span>
+            <span class="flex items-center">
+              <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+              Posted {{ video.created_at|timesince }} ago
+            </span>
+          </div>
+
+          <!-- Action Buttons - Full width on mobile -->
+          <div class="flex justify-between sm:justify-end gap-6 w-full sm:w-auto">
+            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <i data-lucide="heart" class="w-5 h-5"></i><span>Like</span>
+            </button>
+            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <i data-lucide="share-2" class="w-5 h-5"></i><span>Share</span>
+            </button>
+            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <i data-lucide="bookmark" class="w-5 h-5"></i><span>Save</span>
+            </button>
           </div>
         </div>
-        <button class="px-4 py-2 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
-          Follow
-        </button>
-      </div>
-    </div>
-
-    <!-- Video Stats -->
-    <div class="flex flex-wrap items-center justify-between mt-6 pb-6 border-b border-dark-light">
-      <div class="flex items-center gap-2 text-sm text-gray-400">
-        <span class="flex items-center">
-          <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-          {{ video.views }} views
-        </span>
-        <span class="flex items-center">
-          <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
-          Posted {{ video.created_at|timesince }} ago
-        </span>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="flex  gap-4 mt-4 sm:mt-0">
-        <button class="flex items-center gap-1 hover:text-primary">
-          <i data-lucide="heart" class="w-5 h-5"></i><span>Like</span>
-        </button>
-        <!-- Other buttons -->
+      <!-- Description -->
+      <div class="py-6 border-b border-dark-light">
+        <div class="bg-dark-lighter p-5 rounded-lg shadow-md">
+          <p class="text-gray-300 leading-relaxed">{{ video.description|linebreaksbr }}</p>
+          <!-- Optional: hashtags -->
+        </div>
       </div>
-    </div>
 
-    <!-- Description -->
-    <div class="py-6 border-b border-dark-light">
-      <div class="bg-dark-lighter p-4 rounded-lg">
-        <p class="text-gray-300">{{ video.description|linebreaksbr }}</p>
-        <!-- Optional: hashtags -->
-      </div>
-    </div>
-
-    <!-- Comments Section -->
-    <div class="comments-section mt-6">
-      <h3 class="text-lg font-bold">Comments</h3>
-      {% if comments %}
-        <ul class="space-y-4 mt-4">
-          {% for comment in comments %}
-          <li class="border-b border-dark-light pb-4">
-            <div class="flex items-center space-x-3">
-              <img src="{{ comment.profile.avatar.url }}" alt="Profile" class="w-10 h-10 rounded-full">
-              <div class="text-sm">
-                <p class="font-medium">{{ comment.profile.user.username }}</p>
-                <p class="text-gray-400">{{ comment.created_at|timesince }} ago</p>
+      <!-- Comments Section -->
+      <div class="comments-section mt-6">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-5 h-5"></i> Comments
+        </h3>
+        
+        <!-- Comment Form -->
+        <div class="mt-4 flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <i data-lucide="user" class="w-5 h-5 text-dark"></i>
+          </div>
+          <div class="flex-1">
+            <textarea 
+              class="w-full bg-dark-lighter rounded-lg p-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Add a comment..."
+              rows="2"
+            ></textarea>
+            <div class="flex justify-end mt-2">
+              <button class="px-4 py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+                Comment
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        {% if comments %}
+          <ul class="space-y-6 mt-6">
+            {% for comment in comments %}
+            <li class="border-b border-dark-light pb-4">
+              <div class="flex items-start gap-3">
+                <img src="{{ comment.profile.avatar.url }}" alt="Profile" class="w-10 h-10 rounded-full">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <p class="font-medium">{{ comment.profile.user.username }}</p>
+                    <p class="text-xs text-gray-400">{{ comment.created_at|timesince }} ago</p>
+                  </div>
+                  <p class="mt-2 text-gray-300">{{ comment.text }}</p>
+                  <div class="flex gap-4 mt-2 text-sm text-gray-400">
+                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
+                      <i data-lucide="thumbs-up" class="w-4 h-4"></i> Like
+                    </button>
+                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
+                      <i data-lucide="reply" class="w-4 h-4"></i> Reply
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-            <p class="mt-2">{{ comment.text }}</p>
-          </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p class="text-gray-500">No comments yet.</p>
-      {% endif %}
-    </div>
-
-    <!-- Related Videos Section -->
-    <div class="up-next-videos mt-6">
-      <h3 class="text-lg font-bold">Up Next</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-        {% for up_video in up_next_videos %}
-        <div class="video-item">
-          <a href="{% url 'video_get' slug=up_video.slug %}">
-            <img src="{{ up_video.poster_url }}" alt="{{ up_video.title }}" class="w-full rounded-lg">
-            <div class="mt-2">
-              <p class="font-medium">{{ up_video.title }}</p>
-              <p class="text-sm text-gray-400">{{ up_video.views }} views</p>
-            </div>
-          </a>
-        </div>
-        {% endfor %}
+            </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="mt-6 p-4 bg-dark-lighter rounded-lg text-center">
+            <p class="text-gray-400">No comments yet. Be the first to comment!</p>
+          </div>
+        {% endif %}
       </div>
     </div>
-    
+
+    <!-- Sidebar Column -->
+    <div class="lg:col-span-1">
+      <!-- Related Videos Section -->
+      <div class="up-next-videos sticky top-6">
+        <h3 class="text-xl font-bold flex items-center gap-2 mb-4">
+          <i data-lucide="play-circle" class="w-5 h-5"></i> Up Next
+        </h3>
+        <div class="grid grid-cols-1 gap-4">
+          {% for up_video in up_next_videos %}
+          <div class="video-item group hover:bg-dark-lighter p-2 rounded-lg transition-colors">
+            <a href="{% url 'video_get' slug=up_video.slug %}" class="flex gap-3">
+              <div class="w-40 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
+                <img 
+                  src="{{ up_video.poster_url }}" 
+                  alt="{{ up_video.title }}" 
+                  class="w-full h-full object-cover"
+                >
+                <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                  <i data-lucide="play" class="w-10 h-10 text-primary"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="font-medium line-clamp-2 group-hover:text-primary transition-colors">{{ up_video.title }}</p>
+                <p class="text-sm text-gray-400 mt-1">{{ up_video.views }} views</p>
+                <p class="text-xs text-gray-500 mt-1">@{{ up_video.profile.user.username }}</p>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

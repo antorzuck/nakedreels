@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+    @media (max-width: 640px) {
+      .reel-overlay {
+        opacity: 1 !important;
+      }
+    }
+
+  
+
+{% endblock %}
+
+{% block body %}
+<main class="min-h-screen">
+  <!-- Profile Banner -->
+  <div class="relative">
+    <div class="w-full h-28 sm:h-40 bg-primary/80 overflow-hidden">
+      <!-- Banner image could go here -->
+    </div>
+
+    <!-- Profile Info Container -->
+    <div class="bg-dark px-4 pb-4 relative">
+      <!-- Profile Picture -->
+      <div class="absolute -top-12 sm:-top-16 left-4 w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-dark bg-dark-lighter overflow-hidden">
+        <img src="{{ profile.avatar.url }}" alt="Profile picture" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Username and Follow Button -->
+      <div class="flex justify-end pt-2 sm:pt-4 mb-8 sm:mb-12">
+        <button class="px-4 sm:px-8 py-1.5 sm:py-2 bg-primary text-dark font-medium rounded-full hover:bg-secondary transition-colors flex items-center text-sm sm:text-base">
+          <i data-lucide="heart" class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"></i>
+          <span>Follow</span>
+        </button>
+        <button class="ml-2 p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-dark-lighter">
+          <i data-lucide="more-vertical" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+        </button>
+      </div>
+
+      <!-- Profile Info -->
+      <div class="pt-4">
+        <h1 class="text-xl sm:text-2xl font-bold">@{{ profile.user.username }}</h1>
+        <p class="text-sm sm:text-base text-gray-400">Last active {{ profile.last_seen|timesince }} ago</p>
+
+        <p class="my-2 sm:my-3 text-sm sm:text-base">{{ profile.bio|default:"This user hasn't added a bio yet." }}</p>
+
+        <p class="font-bold text-base sm:text-lg">{{ profile.followers.count }} <span class="font-normal text-gray-400">followers</span></p>
+
+        <!-- Social Media Icons -->
+        <div class="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
+          {% if profile.instagram %}
+          <a href="{{ profile.instagram }}" class="p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="instagram" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          </a>
+          {% endif %}
+          {% if profile.twitter %}
+          <a href="{{ profile.twitter }}" class="p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="twitter" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          </a>
+          {% endif %}
+          <a href="#" class="p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-primary hover:text-dark transition-colors">
+            <i data-lucide="heart" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Tabs -->
+  <div class="border-b border-dark-light">
+    <div class="flex overflow-x-auto scrollbar-hide">
+      <button class="tab-active px-4 sm:px-6 py-2 sm:py-3 font-medium border-b-2 flex items-center whitespace-nowrap">
+        <span>Home</span>
+      </button>
+      <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
+        <span>About</span>
+      </button>
+      <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
+        <span>Schedule</span>
+      </button>
+      <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
+        <span>Videos</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="p-3 sm:p-4">
+    {% if page_obj %}
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 mt-2 sm:mt-4">
+      {% for video in page_obj %}
+      <a href="{% url 'video_detail' video.slug %}" class="reel-grid-item block relative aspect-[9/16] bg-dark-light rounded-lg overflow-hidden group">
+        <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}" class="w-full h-full object-cover">
+        <div class="reel-overlay absolute inset-0 bg-gradient-to-b from-transparent to-black/70 opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-0 md:group-hover:opacity-100">
+          <div class="absolute bottom-2 left-2 right-2">
+            <div class="flex items-center justify-between text-xs sm:text-sm text-white">
+              <div class="flex items-center">
+                <i data-lucide="play" class="w-3 h-3 sm:w-4 sm:h-4 mr-1"></i>
+                <span>{{ video.views }}</span>
+              </div>
+              <div class="flex items-center">
+                <i data-lucide="heart" class="w-3 h-3 sm:w-4 sm:h-4 mr-1"></i>
+                <span>{{ video.likes }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4 sm:mt-6 flex justify-center space-x-2">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-2 sm:px-3 py-1 text-sm sm:text-base bg-dark-light rounded hover:bg-primary">Previous</a>
+      {% endif %}
+
+      <span class="px-2 sm:px-3 py-1 text-sm sm:text-base bg-primary text-dark rounded">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-2 sm:px-3 py-1 text-sm sm:text-base bg-dark-light rounded hover:bg-primary">Next</a>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="py-12 sm:py-16 flex flex-col items-center justify-center text-center">
+      <div class="w-16 h-16 sm:w-20 sm:h-20 bg-dark-lighter rounded-full flex items-center justify-center mb-3 sm:mb-4">
+        <i data-lucide="video" class="w-8 h-8 sm:w-10 sm:h-10 text-gray-500"></i>
+      </div>
+      <h2 class="text-lg sm:text-xl font-bold mb-1 sm:mb-2">This channel has no content</h2>
+      <p class="text-gray-400 text-sm sm:text-base max-w-xs">When {{ profile.user.username }} uploads videos, they'll appear here.</p>
+    </div>
+    {% endif %}
+  </div>
+</main>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    lucide.createIcons();
+
+    const tabs = document.querySelectorAll('[class^="px-4 sm:px-6 py-2 sm:py-3 font-medium"]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        tabs.forEach(t => t.classList.remove('tab-active'));
+        this.classList.add('tab-active');
+      });
+    });
+  });
+</script>
+{% endblock %}
