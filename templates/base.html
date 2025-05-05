@@ -140,19 +140,20 @@
     <!-- Main Content -->
     <main class="flex-1 ml-0 md:ml-64 transition-all duration-300">
       <!-- Header -->
-      <header class="sticky top-0 z-30 bg-dark-lighter shadow-md">
+          <header class="sticky top-0 z-30 bg-dark-lighter shadow-md">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
-          <!-- Sidebar Toggle (moved to navbar left) -->
+          <!-- Sidebar Toggle (in navbar left) -->
           
-          <div class="flex justify-between items-center">
-          <button id="sidebarToggle" class="p-2 rounded-full hover:bg-dark-light md:hidden m-auto">
-            <i data-lucide="layout-grid" class="w-6 h-6"></i>
+     
+            
+          
+          <button id="sidebarToggle" class="p-2 rounded-full hover:bg-dark-light md:hidden">
+            <i data-lucide="align-center" class="w-6 h-6"></i>
           </button>
           
           <!-- Mobile Logo -->
           <div class="md:hidden">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-10 m-auto">
-          </div>
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-10">
           </div>
           
           <!-- Search Bar -->
@@ -168,17 +169,15 @@
             <button class="p-2 rounded-full hover:bg-dark-light">
               <i data-lucide="bell" class="w-6 h-6"></i>
             </button>
-            <button class="p-2 rounded-full hover:bg-dark-light">
-              <i data-lucide="message-circle" class="w-6 h-6"></i>
-            </button>
+
             <button class="hidden md:flex items-center px-4 py-2 bg-primary text-dark rounded-full hover:bg-secondary transition-colors">
               <i data-lucide="plus" class="w-5 h-5 mr-1"></i>
               <span class="font-medium">Upload</span>
             </button>
           </div>
         </div>
-      </header>
-
+      </header>         
+ 
 
       {% block body %}
 

@@ -74,7 +74,7 @@ position: relative;
 
     <!-- Video Player -->
     <div class="video-wrapper">
-      <video id="player" playsinline controls poster="{{ video.poster_url }}">
+      <video preload="metadata" id="player" playsinline controls poster="{{ video.thumbnail.url }}">
         <source src="{{ video.video_file.url }}" type="video/mp4" />
       </video>
     </div>
