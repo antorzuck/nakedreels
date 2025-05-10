@@ -155,5 +155,21 @@ def video_get(request, slug):
     return render(request, 'video.html', context)
 
 
+
+
+
+def videos_by_category(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    videos = Video.objects.filter(category=category)
+
+    context = {
+        'category': category,
+        'videos': videos,
+    }
+
+    return render(request, 'category.html', context)
+
+
+
 def p(r):
-    return render(r, 'profile.html')
+    return render(r, 'category.html')

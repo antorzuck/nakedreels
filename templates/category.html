@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!-- Main Content -->
+<main class="pb-20">
+  <div class="grid md:grid-cols-3">
+
+    <div class="col-span-2">
+      <!-- Category Header -->
+      <div class="px-4 py-6">
+        <div class="flex items-center">
+          <div class="w-14 h-14 bg-primary/20 rounded-full flex items-center justify-center">
+            <i data-lucide="music" class="w-8 h-8 text-primary"></i>
+          </div>
+          <div class="ml-4">
+            <h1 class="text-2xl font-bold">{{ category.name }}</h1>
+            <p class="text-gray-400 text-sm">{{ videos.count }} reels</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reels Grid -->
+      <div class="px-4 py-2">
+        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
+
+          {% for video in videos %}
+          <a href="{% url 'video_detail' video.slug %}" class="reel-grid-item block relative aspect-[9/16] bg-dark-light rounded-lg overflow-hidden group">
+            <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}" class="w-full h-full object-cover transition-transform duration-300">
+
+            <!-- User info at top -->
+            <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+              <div class="flex items-center">
+                <div class="w-6 h-6 rounded-full bg-dark-lighter overflow-hidden">
+                  <img src="{{ video.profile.image.url }}" alt="{{ video.profile.user.username }}" class="w-full h-full object-cover">
+                </div>
+                <span class="ml-1 text-xs font-medium">@{{ video.profile.user.username }}</span>
+              </div>
+            </div>
+
+            <!-- Play button overlay -->
+            <div class="reel-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                <i data-lucide="play" class="w-6 h-6 text-dark"></i>
+              </div>
+            </div>
+
+            <!-- Stats at bottom -->
+            <div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
+              <div class="flex items-center justify-between text-sm">
+                <div class="flex items-center">
+                  <i data-lucide="play" class="w-4 h-4 mr-1"></i>
+                  <span>{{ video.views }}</span>
+                </div>
+                <div class="flex items-center">
+                  <i data-lucide="heart" class="w-4 h-4 mr-1"></i>
+                  <span>{{ video.likes }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Duration (optional) -->
+            {# <div class="absolute top-2 right-2 bg-black/70 text-white text-xs px-1 py-0.5 rounded">0:55</div> #}
+          </a>
+          {% empty %}
+          <p class="text-white col-span-full">No videos found in this category.</p>
+          {% endfor %}
+        </div>
+
+        <!-- Load More Button -->
+        <div class="mt-8 text-center">
+          <button class="px-8 py-3 bg-dark-light text-white font-medium rounded-full hover:bg-dark-lighter transition-colors flex items-center justify-center mx-auto">
+            <span>Load More</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 ml-2"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Description -->
+      <div class="px-4 py-6 mt-4 bg-dark-lighter text-white">
+        {{ category.description|default:"No description available." }}
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="py-6 px-4 col-span-1">
+      <div class="rounded-md bg-dark-light m-5 flex justify-center items-center text-white">
+        banner ads
+      </div>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

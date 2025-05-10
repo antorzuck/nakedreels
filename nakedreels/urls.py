@@ -14,5 +14,6 @@ urlpatterns = [
     path('profile/<str:username>/', user_profile, name='user_profile'),
     path('api/check_or_create_profile/', check_or_create_profile, name='check_or_create_profile'),
     path('api/upload_video/', upload_video, name='upload_video'),
+    path('category/<slug:category_slug>/', videos_by_category, name='videos_by_category'),
   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
