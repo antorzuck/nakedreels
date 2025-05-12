@@ -92,13 +92,15 @@ position: relative;
         <h1 class="text-xl md:text-3xl font-bold">{{ video.title }}</h1>
         <div class="flex items-center justify-between mt-4 gap-4">
           <div class="flex items-center">
+            <a href="/profile/{{video.profile.user.username}}">
             <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-md">
               <i data-lucide="user" class="w-7 h-7 text-dark"></i>
             </div>
             <div class="ml-3">
               <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
-              <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }} followers</p>
+              <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }}00 followers</p>
             </div>
+          </a>
           </div>
           <button class="px-6 py-2.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
             Follow
