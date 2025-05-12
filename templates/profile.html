@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block head %}
+{% block css %}
 
 
     @media (max-width: 640px) {
@@ -25,7 +25,11 @@
     <div class="bg-dark px-4 pb-4 relative">
       <!-- Profile Picture -->
       <div class="absolute -top-12 sm:-top-16 left-4 w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-dark bg-dark-lighter overflow-hidden">
+       {% if profile.avatar %}
         <img src="{{ profile.avatar.url }}" alt="Profile picture" class="w-full h-full object-cover">
+        {% else %}
+        <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{profile.user.username}}" alt="Profile picture" class="w-full h-full object-cover">
+        {% endif %}
       </div>
 
       <!-- Username and Follow Button -->
@@ -42,11 +46,11 @@
       <!-- Profile Info -->
       <div class="pt-4">
         <h1 class="text-xl sm:text-2xl font-bold">@{{ profile.user.username }}</h1>
-        <p class="text-sm sm:text-base text-gray-400">Last active {{ profile.last_seen|timesince }} ago</p>
+       
 
         <p class="my-2 sm:my-3 text-sm sm:text-base">{{ profile.bio|default:"This user hasn't added a bio yet." }}</p>
 
-        <p class="font-bold text-base sm:text-lg">{{ profile.followers.count }} <span class="font-normal text-gray-400">followers</span></p>
+        <p class="font-bold text-base sm:text-lg">00{{ profile.followers.count }} <span class="font-normal text-gray-400">followers</span></p>
 
         <!-- Social Media Icons -->
         <div class="flex gap-2 sm:gap-3 mt-3 sm:mt-4">

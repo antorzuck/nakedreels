@@ -213,10 +213,10 @@ position: relative;
         <div class="grid grid-cols-1 gap-4">
           {% for up_video in up_next_videos %}
           <div class="video-item group hover:bg-dark-lighter p-2 rounded-lg transition-colors">
-            <a href="{% url 'video_get' slug=up_video.slug %}" class="flex gap-3">
+            <a href="/video/{{up_video.slug}}" class="flex gap-3">
               <div class="w-40 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
                 <img 
-                  src="{{ up_video.poster_url }}" 
+                  src="{{ up_video.thumbnail.url }}" 
                   alt="{{ up_video.title }}" 
                   class="w-full h-full object-cover"
                 >
