@@ -35,7 +35,7 @@
       <!-- Username and Follow Button -->
       <div class="flex justify-end pt-2 sm:pt-4 mb-8 sm:mb-12">
         <button class="px-4 sm:px-8 py-1.5 sm:py-2 bg-primary text-dark font-medium rounded-full hover:bg-secondary transition-colors flex items-center text-sm sm:text-base">
-          <i data-lucide="heart" class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"></i>
+          <i data-lucide="heart" class="mx-1"></i> 
           <span>Follow</span>
         </button>
         <button class="ml-2 p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-dark-lighter">
@@ -54,9 +54,9 @@
 
         <!-- Social Media Icons -->
         <div class="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
-          {% if profile.instagram %}
-          <a href="{{ profile.instagram }}" class="p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-primary hover:text-dark transition-colors">
-            <i data-lucide="instagram" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          {% if profile %}
+          <a href="{{ profile.instagram }}" class="bg-dark-lighter rounded-full hover:bg-primary hover:text-dark flex items-center justify-center gap-1 p-1.5 text-sm transition-colors">
+            <i data-lucide="gem" class="w-4 h-4"></i> <span>OnlyFans</span>
           </a>
           {% endif %}
           {% if profile.twitter %}
@@ -81,12 +81,7 @@
       <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
         <span>About</span>
       </button>
-      <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
-        <span>Schedule</span>
-      </button>
-      <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
-        <span>Videos</span>
-      </button>
+      
     </div>
   </div>
 
