@@ -15,6 +15,8 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+SITE_ID = 1
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,8 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'base'
+    'base',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
