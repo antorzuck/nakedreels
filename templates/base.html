@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naked Reels - Share Your Reels</title>
-  <!-- Tailwind CSS CDN -->
+  <title>{% block title %}Naked Reels — TikTok, but NSFW AF.{% endblock %}</title>
+<meta name="description" content="{% block meta_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
+  <meta name="keywords" content="nude shorts, NSFW TikTok, naked reels, uncensored videos, trending nudes, nude short">  
+<link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+<!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
