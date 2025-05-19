@@ -2,16 +2,36 @@ from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from .models import *
 from base.views import *
+
+
 class StaticViewSitemap(Sitemap):
+
     def items(self):
-        return [home]
+        return ['home']
 
     def location(self, item):
         return reverse(item)
 
+    def priority(self, item):
+        priorities = {
+            'home': 1.0,
+            'about': 0.5,
+            'contact': 0.5,
+        }
+        return priorities.get(item, 0.5)  # default priority if not found
+
+    def changefreq(self, item):
+        changefreqs = {
+            'home': 'hourly',
+            'about': 'yearly',
+            'contact': 'yearly',
+        }
+        return changefreqs.get(item, 'monthly')
+
+
 
 class VideoSitemap(Sitemap):
-    limit = 1
+    limit = 10000
     changefreq = "weekly"
     priority = 0.9
 
