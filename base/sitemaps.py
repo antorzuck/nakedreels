@@ -11,22 +11,25 @@ class StaticViewSitemap(Sitemap):
 
 
 class VideoSitemap(Sitemap):
+    limit = 1
     changefreq = "weekly"
-    priority = 0.8
+    priority = 0.9
 
     def items(self):
         return Video.objects.all()
 
     def lastmod(self, obj):
-        return obj.updated_at  # Replace with your actual datetime field
-
+        return obj.updated_at
+    def location(self, obj):
+        return '/video/' + obj.slug
 
 class CategorySitemap(Sitemap):
     changefreq = "monthly"
-    priority = 0.6
+    priority = 0.8
 
     def items(self):
         return Category.objects.all()
 
     def lastmod(self, obj):
-        return obj.updated_at  # Replace with your actual datetime field
+        return obj.updated_at
+

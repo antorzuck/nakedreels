@@ -9,9 +9,9 @@ from base.sitemaps import StaticViewSitemap, VideoSitemap, CategorySitemap
 
 
 sitemaps = {
+    'static' : StaticViewSitemap,
     'video': VideoSitemap,
     'category': CategorySitemap,
-    'static': StaticViewSitemap,
 }
 
 
