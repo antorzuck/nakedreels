@@ -1,62 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Results - Naked Reels</title>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>
-tailwind.config = {
-  darkMode: 'class',
-  theme: {
-    extend: {
-      colors: {
-        primary: '#FF9500',
-        secondary: '#FF7A00',
-        dark: '#121212',
-        'dark-lighter': '#1E1E1E',
-        'dark-light': '#2D2D2D'
-      },
-      fontFamily: {
-        sans: ['Inter', 'sans-serif']
-      }
-    }
-  }
-}
-</script>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-body {
-  font-family: 'Inter', sans-serif;
-}
+{% extends 'base.html' %}
 
-/* Custom scrollbar - dark */
-::-webkit-scrollbar {
-  width: 6px;
-}
 
-::-webkit-scrollbar-track {
-  background: #1E1E1E;
-}
 
-::-webkit-scrollbar-thumb {
-  background: #2D2D2D;
-  border-radius: 10px;
-}
-
-.reel-card:hover .reel-overlay {
-  opacity: 1;
-}
-
-.reel-card:hover img {
-  transform: scale(1.05);
-}
-
-/* Ad banner animation */
+{% block css %}
 .ad-banner {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -80,57 +27,11 @@ body {
   animation: pulse 1.5s ease-in-out infinite;
   background-color: #2D2D2D;
 }
-</style>
-</head>
-<body class="bg-dark text-white dark">
-<!-- Page Container with Responsive Layout -->
-<div class="flex flex-col lg:flex-row">
-  <!-- Main Content Area (Shrinks on desktop to make room for ads) -->
-  <div class="flex-grow lg:max-w-[calc(100%-250px)]">
-    <!-- Header -->
-    <header class="sticky top-0 z-30 bg-dark-lighter shadow-md">
-      <div class="container mx-auto px-4 py-3">
-        <!-- Search Bar -->
-        <div class="flex items-center gap-3">
-          <a href="index.html" class="p-2 rounded-full hover:bg-dark-light">
-            <i data-lucide="arrow-left" class="w-6 h-6"></i>
-          </a>
-          
-          <div class="relative flex-grow">
-            <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
-            <input 
-              type="text" 
-              placeholder="Search reels, creators, or categories" 
-              class="w-full bg-dark-light rounded-full py-2 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary"
-              id="searchInput"
-              value="dance"
-              autofocus
-            >
-            <button id="clearSearch" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400">
-              <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-          </div>
-          
-          <button class="p-2 rounded-full hover:bg-dark-light">
-            <i data-lucide="sliders" class="w-6 h-6"></i>
-          </button>
-        </div>
-      </div>
-    </header>
 
-    <!-- Premium Banner (Similar to the reference) -->
-    <div class="bg-gradient-to-r from-primary to-secondary py-3 px-4 text-center">
-      <div class="flex items-center justify-center gap-2">
-        <span class="text-2xl">😍</span>
-        <span class="font-medium">1,000+ premium reels in one subscription</span>
-        <span class="text-2xl">🔥</span>
-        <a href="#" class="ml-2 bg-yellow-400 text-dark font-bold px-4 py-1 rounded-md hover:bg-yellow-300 transition-colors">
-          GET ACCESS
-        </a>
-      </div>
-    </div>
+{% endblock %}
 
-    <!-- Main Content -->
+
+{% block body %}
     <main class="pb-20">
       <!-- Search Results -->
       <div id="searchResults">
@@ -523,76 +424,9 @@ body {
       </a>
     </div>
 
-    <!-- Trending Creators -->
-    <div class="p-4 border-t border-dark-light">
-      <h3 class="font-medium text-gray-300 mb-3">Trending Creators</h3>
-      
-      <div class="space-y-3">
-        <!-- Creator 1 -->
-        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-dark-light">
-          <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 overflow-hidden">
-            <img src="/placeholder.svg?height=40&width=40" alt="Creator" class="w-full h-full object-cover">
-          </div>
-          <div class="ml-3 flex-grow">
-            <h4 class="text-sm font-medium">@dancepro</h4>
-            <p class="text-xs text-gray-400">Dance Instructor</p>
-          </div>
-          <button class="text-xs font-medium text-primary px-2 py-1 rounded-full border border-primary hover:bg-primary hover:text-dark">
-            Follow
-          </button>
-        </a>
-        
-        <!-- Creator 2 -->
-        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-dark-light">
-          <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 overflow-hidden">
-            <img src="/placeholder.svg?height=40&width=40" alt="Creator" class="w-full h-full object-cover">
-          </div>
-          <div class="ml-3 flex-grow">
-            <h4 class="text-sm font-medium">@comedyking</h4>
-            <p class="text-xs text-gray-400">Comedian</p>
-          </div>
-          <button class="text-xs font-medium text-primary px-2 py-1 rounded-full border border-primary hover:bg-primary hover:text-dark">
-            Follow
-          </button>
-        </a>
-        
-        <!-- Creator 3 -->
-        <a href="#" class="flex items-center p-2 rounded-lg hover:bg-dark-light">
-          <div class="w-10 h-10 rounded-full bg-primary flex-shrink-0 overflow-hidden">
-            <img src="/placeholder.svg?height=40&width=40" alt="Creator" class="w-full h-full object-cover">
-          </div>
-          <div class="ml-3 flex-grow">
-            <h4 class="text-sm font-medium">@musiclover</h4>
-            <p class="text-xs text-gray-400">Musician</p>
-          </div>
-          <button class="text-xs font-medium text-primary px-2 py-1 rounded-full border border-primary hover:bg-primary hover:text-dark">
-            Follow
-          </button>
-        </a>
-      </div>
-      
-      <a href="#" class="block text-center text-primary text-sm mt-4 hover:underline">
-        See More
-      </a>
-    </div>
+  
+    
   </aside>
 </div>
 
-<!-- Initialize Lucide Icons -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    lucide.createIcons();
-    
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    const clearSearchBtn = document.getElementById('clearSearch');
-    
-    // Clear search input
-    clearSearchBtn.addEventListener('click', function() {
-      searchInput.value = '';
-      searchInput.focus();
-    });
-  });
-</script>
-</body>
-</html>
+{% endblock %}

@@ -121,7 +121,7 @@ def search_video_view(request):
             Q(tags__name__icontains=query)
         ).distinct()
 
-    return render(request, 'search_results.html', {
+    return render(request, 'search.html', {
         'query': query,
         'videos': videos
     })
