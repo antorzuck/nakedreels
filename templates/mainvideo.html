@@ -1,0 +1,416 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+{% endblock %}
+
+{% block css %}
+:root {
+  --plyr-color-main: #FF9900;
+}
+
+.plyr--video {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.plyr__controls button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.plyr__controls svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Main wrapper: full width, portrait ratio */
+.video-wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: auto;
+  position: relative;
+  aspect-ratio: 9 / 16;
+  background-color: black;
+  max-height: 70vh;
+}
+
+/* Plyr player fills wrapper */
+.plyr {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: black;
+}
+
+/* Video fits inside player, full portrait, not cropped */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  background-color: black;
+}
+
+/* Make wrapper relative so ads can overlay inside */
+#video-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+/* Ensure ad container is on top and clickable */
+.ima-ad-container,
+.ima-container,
+.video-ad-container,
+.google-ima-ad-container {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 100000 !important; /* Increased z-index */
+  pointer-events: auto !important;
+  display: block !important;
+}
+
+/* Disable all Plyr interactions when ads are active */
+.plyr--ads,
+.plyr--ads .plyr__video-wrapper,
+.plyr--ads .plyr__controls,
+.plyr--ads video,
+.plyr--ads .plyr__control,
+.plyr--ads .plyr__poster {
+  pointer-events: none !important;
+  z-index: 0 !important; /* Force Plyr elements below ad */
+}
+
+/* Re-enable pointer events when ads are not active */
+.plyr:not(.plyr--ads) .plyr__video-wrapper,
+.plyr:not(.plyr--ads) .plyr__controls,
+.plyr:not(.plyr--ads) video,
+.plyr:not(.plyr--ads) .plyr__control,
+.plyr:not(.plyr--ads) .plyr__poster {
+  pointer-events: auto !important;
+}
+
+/* Ensure ad container stays on top in fullscreen */
+.plyr--fullscreen .ima-ad-container,
+.plyr--fullscreen .ima-container,
+.plyr--fullscreen .video-ad-container,
+.plyr--fullscreen .google-ima-ad-container {
+  z-index: 100000 !important;
+  pointer-events: auto !important;
+}
+{% endblock %}
+
+
+
+
+{% block body %}
+<div class="container mx-auto px-4 py-6 max-w-7xl">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content Column -->
+    <div class="lg:col-span-2">
+      <!-- Video Player -->
+      <div id="video-container" class="video-wrapper w-full rounded-lg overflow-hidden shadow-lg">
+        <video 
+          preload="metadata" 
+          id="player" 
+          playsinline 
+          controls 
+          poster="{{ video.thumbnail.url }}"
+          class="w-full aspect-video object-cover"
+        >
+          <source src="{{ video.video_file.url }}" type="video/mp4" />
+        </video>
+      </div>
+
+      <!-- Video Info -->
+      <div class="mt-4">
+        <h1 class="text-xl md:text-3xl font-bold">{{ video.title }}</h1>
+        <div class="flex items-center justify-between mt-4 gap-4">
+          <div class="flex items-center">
+            <a class="flex" href="/profile/{{video.profile.user.username}}">
+            <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-md">
+              <i data-lucide="user" class="w-7 h-7 text-dark"></i>
+            </div>
+            <div class="ml-3">
+              <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
+              <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }}00 followers</p>
+            </div>
+          </a>
+          </div>
+          <button class="px-6 py-2.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
+            Follow
+          </button>
+        </div>
+      </div>
+
+      <!-- Replace the Video Stats section with this improved version -->
+      <!-- Video Stats -->
+      <div class="mt-6 pb-6 border-b border-dark-light">
+        <!-- Stats and timestamps - Full width on mobile -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div class="flex items-center gap-4 text-sm text-gray-400">
+            <span class="flex items-center">
+              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+              {{ video.views }} views
+            </span>
+            <span class="flex items-center">
+              <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+              Posted {{ video.created_at|timesince }} ago
+            </span>
+          </div>
+
+          <!-- Action Buttons - Full width on mobile -->
+          <div class="flex justify-between sm:justify-end gap-6 w-full sm:w-auto">
+            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <i data-lucide="heart" class="w-5 h-5"></i><span>Like</span>
+            </button>
+            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <i data-lucide="share-2" class="w-5 h-5"></i><span>Share</span>
+            </button>
+            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <i data-lucide="bookmark" class="w-5 h-5"></i><span>Save</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="py-6 border-b border-dark-light">
+        <div class="bg-dark-lighter p-5 rounded-lg shadow-md">
+          <p class="text-gray-300 leading-relaxed">{{ video.description|linebreaksbr }}</p>
+          <!-- Optional: hashtags -->
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="comments-section mt-6">
+        <h3 class="text-xl font-bold flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-5 h-5"></i> Comments
+        </h3>
+        
+        <!-- Comment Form -->
+        <div class="mt-4 flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <i data-lucide="user" class="w-5 h-5 text-dark"></i>
+          </div>
+          <div class="flex-1">
+            <textarea 
+              class="w-full bg-dark-lighter rounded-lg p-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="Add a comment..."
+              rows="2"
+            ></textarea>
+            <div class="flex justify-end mt-2">
+              <button class="px-4 py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+                Comment
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        {% if comments %}
+          <ul class="space-y-6 mt-6">
+            {% for comment in comments %}
+            <li class="border-b border-dark-light pb-4">
+              <div class="flex items-start gap-3">
+                <img src="{{ comment.profile.avatar.url }}" alt="Profile" class="w-10 h-10 rounded-full">
+                <div class="flex-1">
+                  <div class="flex items-center gap-2">
+                    <p class="font-medium">{{ comment.profile.user.username }}</p>
+                    <p class="text-xs text-gray-400">{{ comment.created_at|timesince }} ago</p>
+                  </div>
+                  <p class="mt-2 text-gray-300">{{ comment.text }}</p>
+                  <div class="flex gap-4 mt-2 text-sm text-gray-400">
+                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
+                      <i data-lucide="thumbs-up" class="w-4 h-4"></i> Like
+                    </button>
+                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
+                      <i data-lucide="reply" class="w-4 h-4"></i> Reply
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="mt-6 p-4 bg-dark-lighter rounded-lg text-center">
+            <p class="text-gray-400">No comments yet. Be the first to comment!</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Sidebar Column -->
+    <div class="lg:col-span-1">
+      <!-- Related Videos Section -->
+      <div class="up-next-videos sticky top-6">
+        <h3 class="text-xl font-bold flex items-center gap-2 mb-4">
+          <i data-lucide="play-circle" class="w-5 h-5"></i> Up Next
+        </h3>
+        <div class="grid grid-cols-1 gap-4">
+          {% for up_video in up_next_videos %}
+          <div class="video-item group hover:bg-dark-lighter p-2 rounded-lg transition-colors">
+            <a href="/video/{{up_video.slug}}" class="flex gap-3">
+              <div class="w-40 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
+                <img 
+                  src="{{ up_video.thumbnail.url }}" 
+                  alt="{{ up_video.title }}" 
+                  class="w-full h-full object-cover"
+                >
+                <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+                  <i data-lucide="play" class="w-10 h-10 text-primary"></i>
+                </div>
+              </div>
+              <div class="flex-1">
+                <p class="font-medium line-clamp-2 group-hover:text-primary transition-colors">{{ up_video.title }}</p>
+                <p class="text-sm text-gray-400 mt-1">{{ up_video.views }} views</p>
+                <p class="text-xs text-gray-500 mt-1">@{{ up_video.profile.user.username }}</p>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block js %}
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+<script>
+const player = new Plyr('#player');
+const videoContainer = document.querySelector('#video-container');
+const adDisplayContainer = new google.ima.AdDisplayContainer(
+  document.querySelector('.plyr__video-wrapper'),
+  player.media
+);
+
+// Initialize IMA Ads
+const adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+const adsRequest = new google.ima.AdsRequest();
+adsRequest.adTagUrl = 'https://vast.yomeno.xyz/vast?spot_id=1425335'; // Your VAST tag
+
+// Handle Ads Manager Loaded
+adsLoader.addEventListener(
+  google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+  (adsManagerLoadedEvent) => {
+    const adsManager = adsManagerLoadedEvent.getAdsManager(player.media, {
+      // Optional: Configure ad rendering settings
+      restoreCustomPlaybackStateOnAdBreakComplete: true
+    });
+
+    // Get actual player size
+    const playerWrapper = document.querySelector('.video-wrapper');
+    const width = playerWrapper.offsetWidth;
+    const height = playerWrapper.offsetHeight;
+
+    // Initialize ads manager
+    adsManager.init(width, height, google.ima.ViewMode.NORMAL);
+
+    // Add event listeners for ad lifecycle
+    adsManager.addEventListener(google.ima.AdEvent.Type.AD_STARTED, () => {
+      console.log('Ad started');
+      videoContainer.classList.add('plyr--ads');
+      player.pause(); // Pause Plyr player during ad
+    });
+
+    adsManager.addEventListener(google.ima.AdEvent.Type.PAUSED, () => {
+      console.log('Ad paused');
+      videoContainer.classList.add('plyr--ads');
+    });
+
+    adsManager.addEventListener(google.ima.AdEvent.Type.RESUMED, () => {
+      console.log('Ad resumed');
+      videoContainer.classList.add('plyr--ads');
+    });
+
+    adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, () => {
+      console.log('All ads completed');
+      videoContainer.classList.remove('plyr--ads');
+      adsManager.destroy();
+    });
+
+    adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, () => {
+      console.log('Ad completed');
+      videoContainer.classList.remove('plyr--ads');
+    });
+
+    adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, () => {
+      console.log('Ad skipped');
+      videoContainer.classList.remove('plyr--ads');
+    });
+
+    adsManager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, (adErrorEvent) => {
+      console.error('Ad error:', adErrorEvent.getError());
+      videoContainer.classList.remove('plyr--ads');
+      adsManager.destroy();
+    });
+
+    // Start ads
+    try {
+      adsManager.start();
+    } catch (error) {
+      console.error('Error starting ads:', error);
+    }
+  },
+  false
+);
+
+// Handle ad errors
+adsLoader.addEventListener(
+  google.ima.AdErrorEvent.Type.AD_ERROR,
+  (adErrorEvent) => {
+    console.error('Ad loader error:', adErrorEvent.getError());
+    videoContainer.classList.remove('plyr--ads');
+    adsLoader.destroy();
+  }
+);
+
+// Initialize ads on first play
+let adsInitialized = false;
+player.on('play', () => {
+  if (adsInitialized) return;
+
+  console.log('Initializing ad display container');
+  adsInitialized = true;
+  try {
+    adDisplayContainer.initialize();
+    adsLoader.requestAds(adsRequest);
+  } catch (error) {
+    console.error('Error initializing ad container:', error);
+  }
+});
+
+// Ensure ad container is clickable on ready
+player.on('ready', () => {
+  const adContainer = document.querySelector('.ima-ad-container');
+  if (adContainer) {
+    adContainer.style.pointerEvents = 'auto';
+    adContainer.style.zIndex = '100000';
+    console.log('Ad container initialized with pointer-events: auto and z-index: 100000');
+  }
+});
+
+// Log clicks on ad container for debugging
+document.addEventListener('click', (event) => {
+  if (event.target.closest('.ima-ad-container')) {
+    console.log('Click detected on ad container');
+  }
+});
+</script>
+{% endblock %}
+
+
+
+
+
+{% endblock %}
