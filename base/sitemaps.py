@@ -14,17 +14,13 @@ class StaticViewSitemap(Sitemap):
 
     def priority(self, item):
         priorities = {
-            'home': 1.0,
-            'about': 0.5,
-            'contact': 0.5,
+            'home': 1.0
         }
         return priorities.get(item, 0.5)  # default priority if not found
 
     def changefreq(self, item):
         changefreqs = {
-            'home': 'hourly',
-            'about': 'yearly',
-            'contact': 'yearly',
+            'home': 'hourly'
         }
         return changefreqs.get(item, 'monthly')
 
