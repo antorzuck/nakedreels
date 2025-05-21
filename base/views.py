@@ -184,3 +184,16 @@ def videos_by_category(request, category_slug):
 
 def p(r):
     return render(r, 'category.html')
+
+
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Disallow:",
+        "Sitemap: https://nakedreels.com/sitemap.xml",
+        "Sitemap: https://nakedreels.com/sitemap-static.xml",
+        "Sitemap: https://nakedreels.com/sitemap-video.xml",
+        "Sitemap: https://nakedreels.com/sitemap-category.xml",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")

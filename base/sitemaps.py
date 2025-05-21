@@ -32,20 +32,42 @@ class VideoSitemap(Sitemap):
     priority = 0.9
 
     def items(self):
-        return Video.objects.all()
+        return Video.objects.all().order_by('-id')
 
     def lastmod(self, obj):
         return obj.updated_at
+
     def location(self, obj):
         return '/video/' + obj.slug
+
+
 
 class CategorySitemap(Sitemap):
     changefreq = "monthly"
     priority = 0.8
 
     def items(self):
-        return Category.objects.all()
+        return Category.objects.all().order_by('-id')
 
     def lastmod(self, obj):
         return obj.updated_at
+
+    def location(self, obj):
+        return '/category/' + obj.slug
+
+
+
+class ProfileSitemap(Sitemap):
+    changefreq = "weekly"
+    limit = 20000
+    priority = 0.9
+
+    def items(self):
+        return Profile.objects.all().order_by('-id')
+
+    def lastmod(self, obj):
+        return obj.updated_at
+
+    def location(self, obj):
+        return '/onlyfans-model/' + obj.user.username
 
