@@ -79,7 +79,7 @@ def home(request):
     recent_videos = paginator.get_page(page_number)
 
     for_you_videos = Video.objects.order_by('?')[:15]
-    featured_profiles = Profile.objects.annotate(video_count=Count('videos')).order_by('-video_count')[:5]
+    featured_profiles = Profile.objects.annotate(video_count=Count('videos')).order_by('-video_count')[:6]
     trending_categories = Category.objects.annotate(video_count=Count('video')).order_by('-video_count')[:6]
 
     context = {
