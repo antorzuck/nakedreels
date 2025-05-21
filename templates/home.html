@@ -41,6 +41,52 @@
       {% endfor %}
     </div>
   </div>
+
+
+
+
+
+
+  <div class="mt-8 flex justify-center items-center space-x-2 text-sm">
+    {% if recent_videos.has_previous %}
+      <a href="?page={{ recent_videos.previous_page_number }}"
+         class="bg-[#F90] text-black font-semibold px-4 py-2 rounded-full shadow hover:bg-[#e68500] transition">
+        ‹ Prev
+      </a>
+    {% endif %}
+  
+    {% for num in recent_videos.paginator.page_range %}
+      {% if recent_videos.number == num %}
+        <span class="bg-gray-800 text-[#F90] font-bold px-4 py-2 rounded-full shadow">
+          {{ num }}
+        </span>
+      {% elif num > recent_videos.number|add:'-3' and num < recent_videos.number|add:'3' %}
+        <a href="?page={{ num }}"
+           class="bg-gray-700 text-white px-4 py-2 rounded-full hover:bg-[#F90] hover:text-black transition">
+          {{ num }}
+        </a>
+      {% endif %}
+    {% endfor %}
+  
+    {% if recent_videos.has_next %}
+      <a href="?page={{ recent_videos.next_page_number }}"
+         class="bg-[#F90] text-black font-semibold px-4 py-2 rounded-full shadow hover:bg-[#e68500] transition">
+        Next ›
+      </a>
+    {% endif %}
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
 </section>
 
 <!-- Featured Creators -->
@@ -48,9 +94,7 @@
   <div class="container mx-auto">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold">Featured Creators</h2>
-      <a href="#" class="text-sm text-primary hover:underline flex items-center">
-        View All <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
-      </a>
+    
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -81,9 +125,7 @@
   <div class="container mx-auto">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold">For You</h2>
-      <a href="#" class="text-sm text-primary hover:underline flex items-center">
-        Refresh <i data-lucide="refresh-cw" class="w-4 h-4 ml-1"></i>
-      </a>
+      
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

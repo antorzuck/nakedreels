@@ -7,7 +7,7 @@ import os
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-
+from django.core.paginator import Paginator
 
 @csrf_exempt
 def check_or_create_profile(request):
@@ -72,7 +72,12 @@ def upload_video(request):
 
 
 def home(request):
-    recent_videos = Video.objects.all().order_by('-created_at')[:15]
+   
+    all_recent_videos = Video.objects.all().order_by('-created_at')
+    paginator = Paginator(all_recent_videos, 20)  
+    page_number = request.GET.get('page')
+    recent_videos = paginator.get_page(page_number)
+
     for_you_videos = Video.objects.order_by('?')[:15]
     featured_profiles = Profile.objects.annotate(video_count=Count('videos')).order_by('-video_count')[:5]
     trending_categories = Category.objects.annotate(video_count=Count('video')).order_by('-video_count')[:6]
@@ -84,6 +89,7 @@ def home(request):
         'trending_categories': trending_categories,
     }
     return render(request, 'home.html', context)
+
 
 
 def user_profile(request, username):
