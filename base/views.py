@@ -120,10 +120,13 @@ def search_video_view(request):
             Q(description__icontains=query) |
             Q(tags__name__icontains=query)
         ).distinct()
+        profiles = Profile.objects.filter(user__username__icontains=query)
+
 
     return render(request, 'search.html', {
         'query': query,
-        'videos': videos
+        'videos': videos,
+        'profiles' : profiles
     })
 
 
