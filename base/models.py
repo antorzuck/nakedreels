@@ -13,6 +13,18 @@ class BaseModel(models.Model):
         abstract = True
 
 
+from django.utils import timezone
+
+class SearchQuery(models.Model):
+    query = models.CharField(max_length=255)
+    searched_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.query
+
+
+
+
 class Profile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)

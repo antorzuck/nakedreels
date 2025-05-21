@@ -57,6 +57,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'base.context_processors.categories_processor',
+                'base.context_processors.trending_searches',
             ],
         },
     },
@@ -105,6 +106,20 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",  # Use Memcached or Redis in production
+        "LOCATION": "unique-snowflake",
+    }
+}
+
+
+
+
+
 
 
 # Static files (CSS, JavaScript, Images)

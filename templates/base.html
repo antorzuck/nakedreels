@@ -66,6 +66,64 @@
       border-radius: 10px;
     }
 
+.search-modal {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.search-modal.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal backdrop */
+.modal-backdrop {
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Profile card hover effect */
+.profile-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* Search icon pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.search-icon-container {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.search-icon-container:hover {
+  animation: none;
+  transform: scale(1.1);
+}
+
+
+
+
+
     {% block css %}
     {% endblock %}
   </style>
@@ -144,15 +202,15 @@
           <!-- Search Bar -->
           <div class="hidden md:flex items-center flex-1 max-w-xl mx-auto">
             <div class="relative w-full">
-              <input id="searchInput" type="text" placeholder="Search reels..." class="w-full py-2 pl-10 pr-4 bg-dark-light rounded-full focus:outline-none focus:ring-2 focus:ring-primary">
+              <input id="searchInputPC" type="text" placeholder="Search reels..." class="w-full py-2 pl-10 pr-4 bg-dark-light rounded-full focus:outline-none focus:ring-2 focus:ring-primary">
               <i data-lucide="search" class="absolute left-3 top-2.5 w-5 h-5 text-gray-400"></i>
             </div>
           </div>
           
           <!-- Action Buttons -->
           <div class="flex items-center space-x-4">
-            <button class="p-2 rounded-full hover:bg-dark-light">
-              <i data-lucide="bell" class="w-6 h-6"></i>
+            <button id="searchButton" class="p-2 rounded-full hover:bg-dark-light">
+              <i data-lucide="search" class="w-6 h-6"></i>
             </button>
 
             <button class="hidden md:flex items-center px-4 py-2 bg-primary text-dark rounded-full hover:bg-secondary transition-colors">
@@ -163,6 +221,109 @@
         </div>
       </header>         
  
+<div id="searchModal" class="search-modal fixed top-0 left-0 right-0 z-50 bg-dark-lighter shadow-lg">
+  <div class="container mx-auto px-4 py-3">
+    <!-- Search Bar -->
+    <div class="flex items-center gap-3">
+      <button id="closeSearchModal" class="p-2 rounded-full hover:bg-dark-light">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+      </button>
+      
+      <div class="relative flex-grow">
+        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+        <input 
+          type="text" 
+          placeholder="Search reels, creators, or categories" 
+          class="w-full bg-dark-light rounded-full py-2 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+          id="searchInput"
+        >
+        <button id="clearSearch" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 hidden">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Trending Searches -->
+    <div class="mt-6">
+      <h3 class="text-lg font-medium mb-3">Trending Searches</h3>
+      
+      <div class="flex flex-wrap gap-2">
+{% for item in trending_searches %}
+        <button class="bg-dark-light px-4 py-2 rounded-full text-sm hover:bg-dark-lighter search-term">
+         {{ item.query }}
+        </button>
+       {% endfor %}
+      </div>
+    </div>
+    
+    <!-- Trending Creators -->
+    <div class="mt-6 pb-4">
+      <h3 class="text-lg font-medium mb-3">Trending Creators</h3>
+      
+      <div class="overflow-x-auto">
+        <div class="flex space-x-4">
+          <!-- Creator 1 -->
+          <a href="profile-twitch-mobile.html" class="profile-card flex-shrink-0 w-28 text-center">
+            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-primary">
+              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+            </div>
+            <div class="mt-2">
+              <h4 class="font-medium text-sm">@dancequeen</h4>
+              <p class="text-xs text-gray-400">1.2K followers</p>
+            </div>
+          </a>
+          
+          <!-- Creator 2 -->
+          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+            </div>
+            <div class="mt-2">
+              <h4 class="font-medium text-sm">@dancepro</h4>
+              <p class="text-xs text-gray-400">3.5K followers</p>
+            </div>
+          </a>
+          
+          <!-- Creator 3 -->
+          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+            </div>
+            <div class="mt-2">
+              <h4 class="font-medium text-sm">@comedyking</h4>
+              <p class="text-xs text-gray-400">8.7K followers</p>
+            </div>
+          </a>
+          
+          <!-- Creator 4 -->
+          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+            </div>
+            <div class="mt-2">
+              <h4 class="font-medium text-sm">@musiclover</h4>
+              <p class="text-xs text-gray-400">5.3K followers</p>
+            </div>
+          </a>
+          
+          <!-- Creator 5 -->
+          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+            </div>
+            <div class="mt-2">
+              <h4 class="font-medium text-sm">@fitnessguru</h4>
+              <p class="text-xs text-gray-400">2.8K followers</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div id="modalBackdrop" class="modal-backdrop fixed inset-0 bg-black/50 z-40"></div>
 
       {% block body %}
 
@@ -202,7 +363,7 @@
                   <li><a href="#" class="text-gray-400 hover:text-primary">Creator Resources</a></li>
                 </ul>
               </div>
-              
+    
               <div>
                 <h3 class="font-semibold mb-3">Legal</h3>
                 <ul class="space-y-2">
@@ -213,38 +374,13 @@
                 </ul>
               </div>
               
-              <div>
-                <h3 class="font-semibold mb-3">Download</h3>
-                <ul class="space-y-2">
-                  <li><a href="#" class="text-gray-400 hover:text-primary">iOS App</a></li>
-                  <li><a href="#" class="text-gray-400 hover:text-primary">Android App</a></li>
-                  <li><a href="#" class="text-gray-400 hover:text-primary">Windows</a></li>
-                  <li><a href="#" class="text-gray-400 hover:text-primary">MacOS</a></li>
-                </ul>
-              </div>
+           
             </div>
           </div>
           
           <!-- Social Links -->
           <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-dark-light">
-            <p class="text-gray-400 mb-4 md:mb-0">&copy; 2025 Naked Reels. All rights reserved.</p>
-            <div class="flex space-x-4">
-              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
-                <i data-lucide="facebook" class="w-5 h-5"></i>
-              </a>
-              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
-                <i data-lucide="twitter" class="w-5 h-5"></i>
-              </a>
-              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
-                <i data-lucide="instagram" class="w-5 h-5"></i>
-              </a>
-              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
-                <i data-lucide="youtube" class="w-5 h-5"></i>
-              </a>
-              <a href="#" class="p-2 bg-dark rounded-full hover:bg-primary hover:text-dark transition-colors">
-                <i data-lucide="tiktok" class="w-5 h-5"></i>
-              </a>
-            </div>
+            <p class="text-gray-400  md:mb-0">&copy; 2025 Naked Reels. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -290,7 +426,7 @@ sidebarToggl.addEventListener('click', function() {
       });
 
 
-  const input = document.getElementById("searchInput");
+  const input = document.getElementById("searchInputPC");
 
   input.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
@@ -300,6 +436,78 @@ sidebarToggl.addEventListener('click', function() {
       }
     }
   });
+
+
+
+
+const searchButton = document.getElementById('searchButton');
+    const closeSearchModal = document.getElementById('closeSearchModal');
+    const searchModal = document.getElementById('searchModal');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
+    const searchTerms = document.querySelectorAll('.search-term');
+    
+    // Open search modal
+    searchButton.addEventListener('click', function() {
+      searchModal.classList.add('active');
+      modalBackdrop.classList.add('active');
+      // Auto focus the search input
+      setTimeout(() => {
+        searchInput.focus();
+      }, 300);
+    });
+    
+    // Close search modal
+    closeSearchModal.addEventListener('click', function() {
+      searchModal.classList.remove('active');
+      modalBackdrop.classList.remove('active');
+      searchInput.value = '';
+      clearSearch.classList.add('hidden');
+    });
+    
+    // Close modal when clicking backdrop
+    modalBackdrop.addEventListener('click', function() {
+      searchModal.classList.remove('active');
+      modalBackdrop.classList.remove('active');
+      searchInput.value = '';
+      clearSearch.classList.add('hidden');
+    });
+    
+    // Show/hide clear button based on input
+    searchInput.addEventListener('input', function() {
+      if (this.value.length > 0) {
+        clearSearch.classList.remove('hidden');
+      } else {
+        clearSearch.classList.add('hidden');
+      }
+    });
+    
+    // Clear search input
+    clearSearch.addEventListener('click', function() {
+      searchInput.value = '';
+      clearSearch.classList.add('hidden');
+      searchInput.focus();
+    });
+    
+    // Handle search submission
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && this.value.trim().length > 0) {
+        // Redirect to search page with query parameter
+        window.location.href = `/search?q=${encodeURIComponent(this.value.trim())}`;
+      }
+    });
+    
+    // Handle trending search terms click
+    searchTerms.forEach(term => {
+      term.addEventListener('click', function() {
+        const searchText = this.textContent.trim();
+        // Redirect to search page with query parameter
+        window.location.href = `/search?q=${encodeURIComponent(searchText)}`;
+      });
+    });
+
+
 
 
 

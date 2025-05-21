@@ -74,7 +74,7 @@ def upload_video(request):
 def home(request):
    
     all_recent_videos = Video.objects.all().order_by('-created_at')
-    paginator = Paginator(all_recent_videos, 20)  
+    paginator = Paginator(all_recent_videos, 2)  
     page_number = request.GET.get('page')
     recent_videos = paginator.get_page(page_number)
 
@@ -121,6 +121,7 @@ def search_video_view(request):
     videos = Video.objects.none()
 
     if query:
+        SearchQuery.objects.create(query=query)
         videos = Video.objects.filter(
             Q(title__icontains=query) |
             Q(description__icontains=query) |
@@ -155,7 +156,8 @@ def video_get(request, slug):
     video = get_object_or_404(Video, slug=slug)
     comments = video.comments.select_related('profile__user').order_by('-created_at')
     up_next_videos = Video.objects.exclude(id=video.id).order_by('?')[:10]
-
+    video.views += 1
+    video.save()
     context = {
         'video': video,
         'comments': comments,
