@@ -31,7 +31,13 @@
             <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
               <div class="flex items-center">
                 <div class="w-6 h-6 rounded-full bg-dark-lighter overflow-hidden">
-                  <img src="{{ video.profile.image.url }}" alt="{{ video.profile.user.username }}" class="w-full h-full object-cover">
+                  {% if video.profile.avatar %}
+                  <img src="{{video.profile.avatar.url}}" alt="{{video.profile.user.username}}" class="rounded-full  h-full object-cover">
+                  {% else %}
+
+                  <img loading="lazy" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
+                    alt="{{video.profile.user.username}}" class="w-full h-full object-cover rounded-full">
+                  {% endif %}
                 </div>
                 <span class="ml-1 text-xs font-medium">@{{ video.profile.user.username }}</span>
               </div>

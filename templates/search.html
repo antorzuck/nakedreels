@@ -50,7 +50,7 @@ background-color: #2D2D2D;
               <img src="{{profile.avatar.url}}" alt="Creator profile" class="w-full h-full object-cover">
               {% else %}
 
-              <img src="https://api.dicebear.com/9.x/bottts/svg?seed={{profile.user.username}}"
+              <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}"
                 alt="{{profile.user.username}}" class="w-full h-full object-cover">
               {% endif %}
             </div>
@@ -111,7 +111,7 @@ background-color: #2D2D2D;
                       alt="{{video.profile.user.username}}" loading="lazy" />
                     {% else %}
                     <img class="w-6 h-6 rounded-full"
-                      src="https://api.dicebear.com/9.x/bottts/svg?seed={{video.profile.user.username}}"
+                      src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
                       alt="{{video.profile.user.username}}" />
 
                     {% endif %}

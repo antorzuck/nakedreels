@@ -17,17 +17,17 @@
       <a href="/video/{{video.slug}}">
         <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
           <div class="aspect-[9/16] bg-dark-light overflow-hidden">
-            <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}"
+            <img loading="lazy" src="{{ video.thumbnail.url }}" alt="{{ video.title }}"
               class="w-full h-full object-cover transition-transform duration-300">
             <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
               <div class="flex items-center">
                 <div class="w-6 h-6 rounded-full flex items-center justify-center">
-                  {% if profile.avatar %}
-                  <img src="{{profile.avatar.url}}" alt="Creator profile" class="rounded-full  h-full object-cover">
+                  {% if video.profile.avatar %}
+                  <img src="{{video.profile.avatar.url}}" alt="{{video.profile.user.username}}" class="rounded-full  h-full object-cover">
                   {% else %}
 
-                  <img src="https://api.dicebear.com/9.x/bottts/svg?seed={{video.profile.user.username}}"
-                    alt="{{profile.user.username}}" class="w-full h-full object-cover rounded-full">
+                  <img loading="lazy" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
+                    alt="{{video.profile.user.username}}" class="w-full h-full object-cover rounded-full">
                   {% endif %}
                 </div>
 
@@ -107,11 +107,11 @@
       {% for profile in featured_profiles %}
       <a href="/onlyfans-model/{{profile.user.username}}">
         <div class="bg-dark-lighter rounded-xl p-4 text-center hover:bg-dark-light transition-colors">
-          <div class="w-20 h-20 mx-auto rounded-full overflow-hidden mb-3 bg-primary">
+          <div class="w-20 h-20 mx-auto rounded-full overflow-hidden mb-3">
             {% if profile.avatar %}
-            <img src="{{ profile.avatar.url }}" class="w-full h-full object-cover rounded-full">
+            <img loading="lazy" src="{{ profile.avatar.url }}" class="w-full h-full object-cover rounded-full" alt="{{profile.user.username}}">
             {% else %}
-            <i data-lucide="user" class="w-10 h-10 text-dark mx-auto mt-5"></i>
+            <img loading="lazy" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}" class="w-full h-full object-cover rounded-full" alt="{{profile.user.username}}">
             {% endif %}
           </div>
           <h3 class="font-semibold">@{{ profile.user.username }}</h3>
@@ -140,7 +140,7 @@
       <a href="/video/{{video.slug}}">
         <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
           <div class="aspect-[9/16] bg-dark-light overflow-hidden">
-            <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}"
+            <img loading="lazy" src="{{ video.thumbnail.url }}" alt="{{ video.title }}"
               class="w-full h-full object-cover transition-transform duration-300">
             <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
               <div class="flex items-center">
@@ -149,7 +149,7 @@
               <img src="{{video.profile.avatar.url}}" alt="Creator profile" class="w-full h-full object-cover rounded-full">
               {% else %}
 
-              <img src="https://api.dicebear.com/9.x/bottts/svg?seed={{video.profile.user.username}}"
+              <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
                 alt="{{video.profile.user.username}}" class="w-full h-full object-cover rounded-full">
               {% endif %}
                 </div>

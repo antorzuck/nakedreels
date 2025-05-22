@@ -82,7 +82,14 @@ video {
           <div class="flex items-center">
             <a class="flex" href="/onlyfans-model/{{video.profile.user.username}}">
             <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-md">
-              <i data-lucide="user" class="w-7 h-7 text-dark"></i>
+
+              {% if video.profile.avatar %}
+              <img src="{{video.profile.avatar.url}}" alt="{{video.profile.user.username}}" class="rounded-full  h-full object-cover">
+              {% else %}
+
+              <img loading="lazy" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
+                alt="{{video.profile.user.username}}" class="w-full h-full object-cover rounded-full">
+              {% endif %}
             </div>
             <div class="ml-3">
               <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
@@ -90,7 +97,7 @@ video {
             </div>
           </a>
           </div>
-          <button class="px-6 py-2.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
+          <button onclick="followUser('{{video.profile.id}}')" class="px-6 py-2.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
             Follow
           </button>
         </div>
@@ -114,9 +121,12 @@ video {
 
           <!-- Action Buttons - Full width on mobile -->
           <div class="flex justify-between sm:justify-end gap-6 w-full sm:w-auto">
-            <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
-              <i data-lucide="heart" class="w-5 h-5"></i><span>Like</span>
-            </button>
+            {% if video.id|stringformat:"s" in liked_videos %}
+    <button onclick="likeVideo('{{ video.id }}')" class="text-primary liking flex items-center gap-1.5"><i data-lucide="heart-crack" class="w-5 h-5"></i><span>Unlike</span></button>
+  {% else %}
+    <button onclick="likeVideo('{{ video.id }}')" class="text-white liking flex items-center gap-1.5"><i data-lucide="heart" class="w-5 h-5"></i><span>Like</span></button>
+  {% endif %}
+
             <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
               <i data-lucide="share-2" class="w-5 h-5"></i><span>Share</span>
             </button>
@@ -165,10 +175,10 @@ video {
             {% for comment in comments %}
             <li class="border-b border-dark-light pb-4">
               <div class="flex items-start gap-3">
-                <img src="{{ comment.profile.avatar.url }}" alt="Profile" class="w-10 h-10 rounded-full">
+                <img src="" alt="Profile" class="w-10 h-10 rounded-full">
                 <div class="flex-1">
                   <div class="flex items-center gap-2">
-                    <p class="font-medium">{{ comment.profile.user.username }}</p>
+                    <p class="font-medium">{{ comment.name }}</p>
                     <p class="text-xs text-gray-400">{{ comment.created_at|timesince }} ago</p>
                   </div>
                   <p class="mt-2 text-gray-300">{{ comment.text }}</p>
@@ -238,7 +248,7 @@ video {
   <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
   
   
-  <script>
+<script>
  const player = new Plyr('#player');
 
 // --- VAST Ad Setup ---
@@ -272,7 +282,43 @@ player.on('play', () => {
   adDisplayContainer.initialize();
   adsLoader.requestAds(adsRequest);
 });
- 
+
+
+
+
+
+function likeVideo(videoId) {
+  fetch(`/like-video/${videoId}/`)
+    .then(response => response.json())
+    .then(data => {
+      const btn = document.querySelector('.liking');
+      if (data.liked) {
+        btn.innerHTML = '❤️ Unlike';
+        btn.classList.remove('text-primary');
+        btn.classList.add('text-white');
+      } else {
+        btn.innerHTML = '♡ Like';
+        btn.classList.remove('text-primary');
+        btn.classList.add('text-white');
+      }
+    });
+}
+
+function followUser(profileId, btn) {
+  fetch(`/follow-user/${profileId}/`)
+    .then(res => res.json())
+    .then(data => {
+      btn.textContent = data.followed ? 'Unfollow' : 'Follow';
+
+      // Optional: Update follower count somewhere on page if you have an element for it
+      const countDiv = document.getElementById(`follower-count-${profileId}`);
+      if (countDiv) {
+        countDiv.textContent = 'Followers: ' + data.follower_count;
+      }
+    })
+    .catch(() => alert('Error updating follow status'));
+}
+
   </script>
   {% endblock %}
 {% endblock %}

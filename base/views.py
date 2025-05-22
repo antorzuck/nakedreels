@@ -154,14 +154,16 @@ def post_comment_view(request, video_slug):
 
 def video_get(request, slug):
     video = get_object_or_404(Video, slug=slug)
-    comments = video.comments.select_related('profile__user').order_by('-created_at')
+    comments = video.comments.all().order_by('-created_at')
     up_next_videos = Video.objects.exclude(id=video.id).order_by('?')[:10]
     video.views += 1
     video.save()
+    liked_videos = request.session.get('liked_videos', [])
     context = {
         'video': video,
         'comments': comments,
         'up_next_videos': up_next_videos,
+        'liked_videos': liked_videos
     }
     return render(request, 'video.html', context)
 
@@ -197,3 +199,56 @@ def robots_txt(request):
         "Sitemap: https://nakedreels.com/sitemap-category.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
+
+def like_video(request, video_id):
+    liked_videos = request.session.get('liked_videos', [])
+
+    if video_id in liked_videos:
+        # Unlike
+        liked_videos.remove(video_id)
+        video = Video.objects.get(id=video_id)
+        video.likes -= 1
+        video.save()
+        liked = False
+    else:
+        # Like
+        liked_videos.append(video_id)
+        video = Video.objects.get(id=video_id)
+        video.likes += 1
+        video.save()
+        liked = True
+
+    request.session['liked_videos'] = liked_videos
+
+    return JsonResponse({
+        'liked': liked,
+        'likes_count': video.likes,
+        'message': "Unliked" if not liked else "Liked"
+    })
+
+def follow_user(request, user_id):
+    followed_profiles = request.session.get('followed_profiles', [])
+    profile_id_str = str(user_id)
+
+    profile = get_object_or_404(Profile, id=user_id)
+
+    if profile_id_str in followed_profiles:
+        # Unfollow
+        followed_profiles.remove(profile_id_str)
+        profile.follow_count = max(profile.follow_count - 1, 0)
+        followed = False
+    else:
+        # Follow
+        followed_profiles.append(profile_id_str)
+        profile.follow_count += 1
+        followed = True
+
+    profile.save()
+    request.session['followed_profiles'] = followed_profiles
+    request.session.modified = True
+
+    return JsonResponse({
+        'followed': followed,
+        'follower_count': profile.follow_count,
+        'message': "Unfollowed" if not followed else "Followed"
+    })

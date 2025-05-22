@@ -15,7 +15,6 @@ sitemaps = {
 }
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     
@@ -27,6 +26,8 @@ urlpatterns = [
     path('api/check_or_create_profile/', check_or_create_profile, name='check_or_create_profile'),
     path('api/upload_video/', upload_video, name='upload_video'),
     path('category/<slug:category_slug>/', videos_by_category, name='videos_by_category'),
+    path("like-video/<str:video_id>/", like_video, name="like_video"),
+    path("follow-user/<str:user_id>/", follow_user, name="follow_user"),
 
     path("sitemap.xml/", index, {'sitemaps': sitemaps}, name='sitemap-index'),
     path("sitemap-<section>.xml", sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

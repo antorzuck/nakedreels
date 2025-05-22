@@ -28,7 +28,7 @@
        {% if profile.avatar %}
         <img src="{{ profile.avatar.url }}" alt="Profile picture" class="w-full h-full object-cover">
         {% else %}
-        <img src="https://api.dicebear.com/9.x/bottts/svg?seed={{profile.user.username}}" alt="Profile picture" class="w-full h-full object-cover">
+        <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}" alt="Profile picture" class="w-full h-full object-cover">
         {% endif %}
       </div>
 
@@ -50,7 +50,7 @@
 
         <p class="my-2 sm:my-3 text-sm sm:text-base">{{ profile.bio|default:"This user hasn't added a bio yet." }}</p>
 
-        <p class="font-bold text-base sm:text-lg">00{{ profile.followers.count }} <span class="font-normal text-gray-400">followers</span></p>
+        <p class="font-bold text-base sm:text-lg">{{ profile.follow_count }} <span class="font-normal text-gray-400">followers</span></p>
 
         <!-- Social Media Icons -->
         <div class="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
@@ -59,14 +59,8 @@
             <i data-lucide="gem" class="w-4 h-4"></i> <span>OnlyFans</span>
           </a>
           {% endif %}
-          {% if profile.twitter %}
-          <a href="{{ profile.twitter }}" class="p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-primary hover:text-dark transition-colors">
-            <i data-lucide="twitter" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-          </a>
-          {% endif %}
-          <a href="#" class="p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-primary hover:text-dark transition-colors">
-            <i data-lucide="heart" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-          </a>
+          
+          
         </div>
       </div>
     </div>

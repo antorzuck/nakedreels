@@ -29,6 +29,7 @@ class Profile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
     avatar = models.FileField(upload_to='avatars/', blank=True)
+    follow_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.user.username
@@ -86,7 +87,7 @@ class Video(BaseModel):
 
 class Comment(BaseModel):
     video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='comments')
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
     text = models.TextField()
 
     def __str__(self):
