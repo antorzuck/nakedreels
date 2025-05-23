@@ -93,12 +93,12 @@ video {
             </div>
             <div class="ml-3">
               <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
-              <p class="text-sm text-gray-400">{{ video.creator.profile.followers_count }}00 followers</p>
+              <p class="text-sm text-gray-400">{{ video.profile.follow_count }} followers</p>
             </div>
           </a>
           </div>
-          <button onclick="followUser('{{video.profile.id}}')" class="px-6 py-2.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
-            Follow
+          <button onclick="followUser('{{video.profile.id}}')" class="px-6 py-2.5 folw bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
+              {% if has_followed %}Unfollow{% else %}Follow{% endif %}
           </button>
         </div>
       </div>
@@ -308,6 +308,7 @@ function followUser(profileId, btn) {
   fetch(`/follow-user/${profileId}/`)
     .then(res => res.json())
     .then(data => {
+      const btn = document.querySelector('.folw');
       btn.textContent = data.followed ? 'Unfollow' : 'Follow';
 
       // Optional: Update follower count somewhere on page if you have an element for it

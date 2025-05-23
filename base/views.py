@@ -159,11 +159,15 @@ def video_get(request, slug):
     video.views += 1
     video.save()
     liked_videos = request.session.get('liked_videos', [])
+    followed_profiles = request.session.get('followed_profiles', [])
+    has_followed = str(video.profile.id) in followed_profiles
+
     context = {
         'video': video,
         'comments': comments,
         'up_next_videos': up_next_videos,
-        'liked_videos': liked_videos
+        'liked_videos': liked_videos,
+        'has_followed': has_followed,
     }
     return render(request, 'video.html', context)
 

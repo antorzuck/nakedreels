@@ -4,14 +4,15 @@ from django.contrib import admin
 from django.urls import path
 from base.views import *
 from django.contrib.sitemaps.views import sitemap, index
-from base.sitemaps import StaticViewSitemap, VideoSitemap, CategorySitemap
-
+from base.sitemaps import StaticViewSitemap, VideoSitemap, CategorySitemap, SearchSitemap, ProfileSitemap
 
 
 sitemaps = {
     'static' : StaticViewSitemap,
     'video': VideoSitemap,
     'category': CategorySitemap,
+    'profile' : ProfileSitemap,
+    'search' : SearchSitemap, 
 }
 
 

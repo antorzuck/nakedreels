@@ -71,3 +71,16 @@ class ProfileSitemap(Sitemap):
     def location(self, obj):
         return '/onlyfans-model/' + obj.user.username
 
+
+
+
+class SearchSitemap(Sitemap):
+    changefreq = "monthly"
+    limit = 20000
+    priority = 0.8
+
+    def items(self):
+        return SearchQuery.objects.all().order_by('-id')
+
+    def location(self, obj):
+        return '/search?q=' + obj.query

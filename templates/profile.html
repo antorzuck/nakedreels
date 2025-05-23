@@ -34,9 +34,9 @@
 
       <!-- Username and Follow Button -->
       <div class="flex justify-end pt-2 sm:pt-4 mb-8 sm:mb-12">
-        <button class="px-4 sm:px-8 py-1.5 sm:py-2 bg-primary text-dark font-medium rounded-full hover:bg-secondary transition-colors flex items-center text-sm sm:text-base">
+        <button onclick="followUser('{{profile.id}}')" class="folw px-4 sm:px-8 py-1.5 sm:py-2 bg-primary text-dark font-medium rounded-full hover:bg-secondary transition-colors flex items-center text-sm sm:text-base">
           <i data-lucide="heart" class="mx-1"></i> 
-          <span>Follow</span>
+          <span >Follow</span>
         </button>
         <button class="ml-2 p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-dark-lighter">
           <i data-lucide="more-vertical" class="w-4 h-4 sm:w-5 sm:h-5"></i>
@@ -141,5 +141,29 @@
       });
     });
   });
+
+
+
+
+
+function followUser(profileId) {
+  fetch(`/follow-user/${profileId}/`)
+    .then(res => res.json())
+    .then(data => {
+      const btn = document.querySelector('.folw');
+      btn.InnerHTML = data.followed ? '<i data-lucide="heart" class="mx-1"></i><span >Unfollow</span>' : 'Follow';
+
+      // Optional: Update follower count somewhere on page if you have an element for it
+      const countDiv = document.getElementById(`follower-count-${profileId}`);
+      if (countDiv) {
+        countDiv.textContent = 'Followers: ' + data.follower_count;
+      }
+    })
+    .catch(() => alert('Error updating follow status'));
+}
+
+
+
+
 </script>
 {% endblock %}
