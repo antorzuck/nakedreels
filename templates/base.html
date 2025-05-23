@@ -12,45 +12,6 @@
   <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
 
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
-  <meta property="og:title" content="{% block og_title %}Naked Reels — TikTok, but NSFW AF.{% endblock %}">
-  <meta property="og:description"
-    content="{% block og_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
-  <meta property="og:image" content="{% block og_image %}{{ STATIC_URL }}static/logo/nakedreels-og.jpg{% endblock %}">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
-  <meta name="twitter:title" content="{% block twitter_title %}Naked Reels — TikTok, but NSFW AF.{% endblock %}">
-  <meta name="twitter:description"
-    content="{% block twitter_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
-  <meta name="twitter:image"
-    content="{% block twitter_image %}{{ STATIC_URL }}images/nakedreels-twitter.jpg{% endblock %}">
-
-  <!-- Robots -->
-  <meta name="robots" content="index, follow">
-
-  <!-- Favicons -->
-  <link rel="icon" href="{% static 'logo/naked-reels.png' %}" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{% static 'logo/naked-reels.png' %}">
-
-  <!-- Schema.org JSON-LD Structured Data (optional) -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Naked Reels",
-      "url": "https://nakedreels.com",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://nakedreels.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -170,13 +131,9 @@
 
 
 
-      {
-      % block css %
-    }
+      {% block css %}
 
-      {
-      % endblock %
-    }
+      {% endblock %}
   </style>
 </head>
 
@@ -331,54 +288,6 @@
                   <div class="mt-2">
                     <h4 class="font-medium text-sm">@dancequeen</h4>
                     <p class="text-xs text-gray-400">1.2K followers</p>
-                  </div>
-                </a>
-
-                <!-- Creator 2 -->
-                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
-                      class="w-full h-full object-cover">
-                  </div>
-                  <div class="mt-2">
-                    <h4 class="font-medium text-sm">@dancepro</h4>
-                    <p class="text-xs text-gray-400">3.5K followers</p>
-                  </div>
-                </a>
-
-                <!-- Creator 3 -->
-                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
-                      class="w-full h-full object-cover">
-                  </div>
-                  <div class="mt-2">
-                    <h4 class="font-medium text-sm">@comedyking</h4>
-                    <p class="text-xs text-gray-400">8.7K followers</p>
-                  </div>
-                </a>
-
-                <!-- Creator 4 -->
-                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
-                      class="w-full h-full object-cover">
-                  </div>
-                  <div class="mt-2">
-                    <h4 class="font-medium text-sm">@musiclover</h4>
-                    <p class="text-xs text-gray-400">5.3K followers</p>
-                  </div>
-                </a>
-
-                <!-- Creator 5 -->
-                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
-                      class="w-full h-full object-cover">
-                  </div>
-                  <div class="mt-2">
-                    <h4 class="font-medium text-sm">@fitnessguru</h4>
-                    <p class="text-xs text-gray-400">2.8K followers</p>
                   </div>
                 </a>
               </div>

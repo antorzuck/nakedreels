@@ -25,6 +25,7 @@ urlpatterns = [
     path('search/', search_video_view, name='search'),
     path('onlyfans-model/<str:username>/', user_profile, name='user_profile'),
     path('api/check_or_create_profile/', check_or_create_profile, name='check_or_create_profile'),
+    path('video/<slug:video_slug>/comment/', post_comment_view, name='post_comment'),
     path('api/upload_video/', upload_video, name='upload_video'),
     path('category/<slug:category_slug>/', videos_by_category, name='videos_by_category'),
     path("like-video/<str:video_id>/", like_video, name="like_video"),

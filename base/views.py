@@ -8,6 +8,11 @@ from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.core.paginator import Paginator
+import random
+import string
+
+
+
 
 @csrf_exempt
 def check_or_create_profile(request):
@@ -138,19 +143,34 @@ def search_video_view(request):
 
 
 
+def generate_random_name():
+    return 'User-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
 @csrf_exempt 
 def post_comment_view(request, video_slug):
     if request.method == 'POST':
         video = get_object_or_404(Video, slug=video_slug)
         text = request.POST.get('text', '').strip()
+
+        # Get or set random name in session
+        name = request.session.get('commenter_name')
+        if not name:
+            name = generate_random_name()
+            request.session['commenter_name'] = name
+
         if text and request.user.is_authenticated:
-            Comment.objects.create(
+            comment = Comment.objects.create(
                 video=video,
-                profile=request.user.profile,
+                name=name,
                 text=text
             )
-        return HttpResponseRedirect(reverse('video_detail', args=[video_slug]))
-
+            return JsonResponse({
+                'status': 'success',
+                'name': comment.name,
+                'text': comment.text,
+                'created_at': 'just now'
+            })
+        return JsonResponse({'status': 'failed'}, status=400)
 
 def video_get(request, slug):
     video = get_object_or_404(Video, slug=slug)
