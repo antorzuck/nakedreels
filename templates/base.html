@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>{% block title %}Naked Reels — TikTok, but NSFW AF.{% endblock %}</title>
-<meta name="description" content="{% block meta_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
-  <meta name="keywords" content="nude shorts, NSFW TikTok, naked reels, uncensored videos, trending nudes, nude short">  
-<link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
-<!-- Tailwind CSS CDN -->
+  <meta name="description"
+    content="{% block meta_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
+  <meta name="keywords" content="nude shorts, NSFW TikTok, naked reels, uncensored videos, trending nudes, nude short">
+  <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:title" content="{% block og_title %}Naked Reels — TikTok, but NSFW AF.{% endblock %}">
+  <meta property="og:description"
+    content="{% block og_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}{{ STATIC_URL }}static/logo/nakedreels-og.jpg{% endblock %}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+  <meta name="twitter:title" content="{% block twitter_title %}Naked Reels — TikTok, but NSFW AF.{% endblock %}">
+  <meta name="twitter:description"
+    content="{% block twitter_description %}Naked Reels delivers the hottest nude shorts and NSFW TikTok content — no filters, all thrill.{% endblock %}">
+  <meta name="twitter:image"
+    content="{% block twitter_image %}{{ STATIC_URL }}images/nakedreels-twitter.jpg{% endblock %}">
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicons -->
+  <link rel="icon" href="{% static 'logo/naked-reels.png' %}" type="image/x-icon">
+  <link rel="apple-touch-icon" href="{% static 'logo/naked-reels.png' %}">
+
+  <!-- Schema.org JSON-LD Structured Data (optional) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Naked Reels",
+      "url": "https://nakedreels.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://nakedreels.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   {% block head %}
@@ -35,134 +78,148 @@
   </script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
+
     body {
       font-family: 'Inter', sans-serif;
     }
-    
+
     .sidebar-transition {
       transition: transform 0.3s ease-in-out;
     }
-    
+
     .reel-card:hover .reel-overlay {
       opacity: 1;
     }
-    
+
     .reel-card:hover img {
       transform: scale(1.05);
     }
-    
+
     /* Custom scrollbar - now dark */
     ::-webkit-scrollbar {
       width: 6px;
     }
-    
+
     ::-webkit-scrollbar-track {
       background: #1E1E1E;
     }
-    
+
     ::-webkit-scrollbar-thumb {
       background: #2D2D2D;
       border-radius: 10px;
     }
 
-.search-modal {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
-}
+    .search-modal {
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
 
-.search-modal.active {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
+    .search-modal.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-/* Modal backdrop */
-.modal-backdrop {
-  transition: opacity 0.3s ease;
-  opacity: 0;
-  pointer-events: none;
-}
+    /* Modal backdrop */
+    .modal-backdrop {
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
 
-.modal-backdrop.active {
-  opacity: 1;
-  pointer-events: auto;
-}
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-/* Profile card hover effect */
-.profile-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    /* Profile card hover effect */
+    .profile-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.profile-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-}
+    .profile-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    }
 
-/* Search icon pulse animation */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
+    /* Search icon pulse animation */
+    @keyframes pulse {
 
-.search-icon-container {
-  animation: pulse 2s ease-in-out infinite;
-}
+      0%,
+      100% {
+        transform: scale(1);
+      }
 
-.search-icon-container:hover {
-  animation: none;
-  transform: scale(1.1);
-}
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .search-icon-container {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .search-icon-container:hover {
+      animation: none;
+      transform: scale(1.1);
+    }
 
 
 
 
 
-    {% block css %}
-    {% endblock %}
+      {
+      % block css %
+    }
+
+      {
+      % endblock %
+    }
   </style>
 </head>
+
 <body class="bg-dark text-white dark">
   <div class="flex min-h-screen">
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-dark-lighter transform -translate-x-full md:translate-x-0 sidebar-transition">
+    <aside id="sidebar"
+      class="fixed inset-y-0 left-0 z-40 w-64 bg-dark-lighter transform -translate-x-full md:translate-x-0 sidebar-transition">
       <div class="flex flex-col h-full">
         <!-- Logo -->
         <div class="p-4 flex justify-center relative">
-<button id="sidebarToggl" class="md:invisible absolute p-2 top-2 right-1 rounded-full bg-dark-light">
-              <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
+          <button id="sidebarToggl" class="md:invisible absolute p-2 top-2 right-1 rounded-full bg-dark-light">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
           <a href="/">
-          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-16">
+            <img
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png"
+              alt="Naked Reels Logo" class="h-16">
           </a>
         </div>
-        
+
         <!-- Navigation -->
         <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-          <a href="/" class="flex items-center px-4 py-3 text-white bg-dark-light rounded-lg hover:bg-primary hover:text-dark transition-colors">
+          <a href="/"
+            class="flex items-center px-4 py-3 text-white bg-dark-light rounded-lg hover:bg-primary hover:text-dark transition-colors">
             <i data-lucide="home" class="w-5 h-5 mr-3"></i>
             <span>Home</span>
           </a>
-         
+
           </a>
           <div class="pt-6 pb-2">
             <div class="px-4 text-xs font-semibold text-gray-400 uppercase">Popular Categories</div>
           </div>
           {% for category in categories %}
-          <a href="/category/{{category.slug}}" class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
+          <a href="/category/{{category.slug}}"
+            class="flex items-center px-4 py-3 text-white rounded-lg hover:bg-primary hover:text-dark transition-colors">
             <i data-lucide="folder" class="w-5 h-5 mr-3"></i>
             <span>{{ category.name }}</span>
           </a>
-            {% endfor %}
-       
+          {% endfor %}
+
         </nav>
-        
+
         <!-- User Section -->
         <div class="p-4 border-t border-dark-light">
           <a href="#" class="flex items-center">
@@ -181,168 +238,178 @@
     <!-- Main Content -->
     <main class="flex-1 ml-0 md:ml-64 transition-all duration-300">
       <!-- Header -->
-          <header class="sticky top-0 z-30 bg-dark-lighter shadow-md">
+      <header class="sticky top-0 z-30 bg-dark-lighter shadow-md">
         <div class="container mx-auto px-4 py-3 flex items-center justify-between">
           <!-- Sidebar Toggle (in navbar left) -->
-          
-     
-            
-          
+
+
+
+
           <button id="sidebarToggle" class="p-2 rounded-full hover:bg-dark-light md:hidden">
             <i data-lucide="align-center" class="w-6 h-6"></i>
           </button>
-          
+
           <!-- Mobile Logo -->
           <div class="md:hidden">
             <a href="/">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-10">
-          </a>
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png"
+                alt="Naked Reels Logo" class="h-10">
+            </a>
           </div>
-          
+
           <!-- Search Bar -->
           <div class="hidden md:flex items-center flex-1 max-w-xl mx-auto">
             <div class="relative w-full">
-              <input id="searchInputPC" type="text" placeholder="Search reels..." class="w-full py-2 pl-10 pr-4 bg-dark-light rounded-full focus:outline-none focus:ring-2 focus:ring-primary">
+              <input id="searchInputPC" type="text" placeholder="Search reels..."
+                class="w-full py-2 pl-10 pr-4 bg-dark-light rounded-full focus:outline-none focus:ring-2 focus:ring-primary">
               <i data-lucide="search" class="absolute left-3 top-2.5 w-5 h-5 text-gray-400"></i>
             </div>
           </div>
-          
+
           <!-- Action Buttons -->
           <div class=" flex items-center space-x-4">
             <button id="searchButton" class="block md:hidden p-2 rounded-full hover:bg-dark-light">
               <i data-lucide="search" class="w-6 h-6"></i>
             </button>
 
-            <button class="hidden md:flex items-center px-4 py-2 bg-primary text-dark rounded-full hover:bg-secondary transition-colors">
+            <button
+              class="hidden md:flex items-center px-4 py-2 bg-primary text-dark rounded-full hover:bg-secondary transition-colors">
               <i data-lucide="plus" class="w-5 h-5 mr-1"></i>
               <span class="font-medium">Upload</span>
             </button>
           </div>
         </div>
-      </header>         
- 
-<div id="searchModal" class="search-modal fixed top-0 left-0 right-0 z-50 bg-dark-lighter shadow-lg">
-  <div class="container mx-auto px-4 py-3">
-    <!-- Search Bar -->
-    <div class="flex items-center gap-3">
-      <button id="closeSearchModal" class="p-2 rounded-full hover:bg-dark-light">
-        <i data-lucide="arrow-left" class="w-6 h-6"></i>
-      </button>
-      
-      <div class="relative flex-grow">
-        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
-        <input 
-          type="text" 
-          placeholder="Search reels, creators, or categories" 
-          class="w-full bg-dark-light rounded-full py-2 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary"
-          id="searchInput"
-        >
-        <button id="clearSearch" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 hidden">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-    </div>
-    
-    <!-- Trending Searches -->
-    <div class="mt-6">
-      <h3 class="text-lg font-medium mb-3">Trending Searches</h3>
-      
-      <div class="flex flex-wrap gap-2">
-{% for item in trending_searches %}
-        <button class="bg-dark-light px-4 py-2 rounded-full text-sm hover:bg-dark-lighter search-term">
-         {{ item.query }}
-        </button>
-       {% endfor %}
-      </div>
-    </div>
-    
-    <!-- Trending Creators -->
-    <div class="mt-6 pb-4">
-      <h3 class="text-lg font-medium mb-3">Trending Creators</h3>
-      
-      <div class="overflow-x-auto">
-        <div class="flex space-x-4">
-          <!-- Creator 1 -->
-          <a href="profile-twitch-mobile.html" class="profile-card flex-shrink-0 w-28 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-primary">
-              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+      </header>
+
+      <div id="searchModal" class="search-modal fixed top-0 left-0 right-0 z-50 bg-dark-lighter shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+          <!-- Search Bar -->
+          <div class="flex items-center gap-3">
+            <button id="closeSearchModal" class="p-2 rounded-full hover:bg-dark-light">
+              <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </button>
+
+            <div class="relative flex-grow">
+              <i data-lucide="search"
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+              <input type="text" placeholder="Search reels, creators, or categories"
+                class="w-full bg-dark-light rounded-full py-2 pl-10 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+                id="searchInput">
+              <button id="clearSearch"
+                class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 hidden">
+                <i data-lucide="x" class="w-5 h-5"></i>
+              </button>
             </div>
-            <div class="mt-2">
-              <h4 class="font-medium text-sm">@dancequeen</h4>
-              <p class="text-xs text-gray-400">1.2K followers</p>
+          </div>
+
+          <!-- Trending Searches -->
+          <div class="mt-6">
+            <h3 class="text-lg font-medium mb-3">Trending Searches</h3>
+
+            <div class="flex flex-wrap gap-2">
+              {% for item in trending_searches %}
+              <button class="bg-dark-light px-4 py-2 rounded-full text-sm hover:bg-dark-lighter search-term">
+                {{ item.query }}
+              </button>
+              {% endfor %}
             </div>
-          </a>
-          
-          <!-- Creator 2 -->
-          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
+          </div>
+
+          <!-- Trending Creators -->
+          <div class="mt-6 pb-4">
+            <h3 class="text-lg font-medium mb-3">Trending Creators</h3>
+
+            <div class="overflow-x-auto">
+              <div class="flex space-x-4">
+                <!-- Creator 1 -->
+                <a href="profile-twitch-mobile.html" class="profile-card flex-shrink-0 w-28 text-center">
+                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-primary">
+                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
+                      class="w-full h-full object-cover">
+                  </div>
+                  <div class="mt-2">
+                    <h4 class="font-medium text-sm">@dancequeen</h4>
+                    <p class="text-xs text-gray-400">1.2K followers</p>
+                  </div>
+                </a>
+
+                <!-- Creator 2 -->
+                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
+                      class="w-full h-full object-cover">
+                  </div>
+                  <div class="mt-2">
+                    <h4 class="font-medium text-sm">@dancepro</h4>
+                    <p class="text-xs text-gray-400">3.5K followers</p>
+                  </div>
+                </a>
+
+                <!-- Creator 3 -->
+                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
+                      class="w-full h-full object-cover">
+                  </div>
+                  <div class="mt-2">
+                    <h4 class="font-medium text-sm">@comedyking</h4>
+                    <p class="text-xs text-gray-400">8.7K followers</p>
+                  </div>
+                </a>
+
+                <!-- Creator 4 -->
+                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
+                      class="w-full h-full object-cover">
+                  </div>
+                  <div class="mt-2">
+                    <h4 class="font-medium text-sm">@musiclover</h4>
+                    <p class="text-xs text-gray-400">5.3K followers</p>
+                  </div>
+                </a>
+
+                <!-- Creator 5 -->
+                <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
+                  <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
+                    <img src="/placeholder.svg?height=80&width=80" alt="Creator profile"
+                      class="w-full h-full object-cover">
+                  </div>
+                  <div class="mt-2">
+                    <h4 class="font-medium text-sm">@fitnessguru</h4>
+                    <p class="text-xs text-gray-400">2.8K followers</p>
+                  </div>
+                </a>
+              </div>
             </div>
-            <div class="mt-2">
-              <h4 class="font-medium text-sm">@dancepro</h4>
-              <p class="text-xs text-gray-400">3.5K followers</p>
-            </div>
-          </a>
-          
-          <!-- Creator 3 -->
-          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
-            </div>
-            <div class="mt-2">
-              <h4 class="font-medium text-sm">@comedyking</h4>
-              <p class="text-xs text-gray-400">8.7K followers</p>
-            </div>
-          </a>
-          
-          <!-- Creator 4 -->
-          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
-            </div>
-            <div class="mt-2">
-              <h4 class="font-medium text-sm">@musiclover</h4>
-              <p class="text-xs text-gray-400">5.3K followers</p>
-            </div>
-          </a>
-          
-          <!-- Creator 5 -->
-          <a href="#" class="profile-card flex-shrink-0 w-28 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full bg-dark-light overflow-hidden border-2 border-dark-light">
-              <img src="/placeholder.svg?height=80&width=80" alt="Creator profile" class="w-full h-full object-cover">
-            </div>
-            <div class="mt-2">
-              <h4 class="font-medium text-sm">@fitnessguru</h4>
-              <p class="text-xs text-gray-400">2.8K followers</p>
-            </div>
-          </a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- Modal Backdrop -->
-<div id="modalBackdrop" class="modal-backdrop fixed inset-0 bg-black/50 z-40"></div>
+      <!-- Modal Backdrop -->
+      <div id="modalBackdrop" class="modal-backdrop fixed inset-0 bg-black/50 z-40"></div>
 
       {% block body %}
 
       {% endblock %}
 
-    
-      
+
+
       <!-- Footer -->
       <footer class="bg-dark-lighter py-10 px-4">
         <div class="container mx-auto">
 
           <div class="mb-6 md:mb-0 flex items-center justify-center ">
             <a href="/">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png" alt="Naked Reels Logo" class="h-12">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT_Image_Apr_24__2025__01_00_00_PM-removebg-preview-3J8ZeDUeNbGXgdNW6qzs110Y3T5TRG.png"
+                alt="Naked Reels Logo" class="h-12">
             </a>
           </div>
           <div class="flex flex-col md:flex-row justify-between items-center my-8">
-          
-            
+
+
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
               <div>
                 <h3 class="font-semibold mb-3">Company</h3>
@@ -353,7 +420,7 @@
                   <li><a href="#" class="text-gray-400 hover:text-primary">Blog</a></li>
                 </ul>
               </div>
-              
+
               <div>
                 <h3 class="font-semibold mb-3">Support</h3>
                 <ul class="space-y-2">
@@ -363,7 +430,7 @@
                   <li><a href="#" class="text-gray-400 hover:text-primary">Creator Resources</a></li>
                 </ul>
               </div>
-    
+
               <div>
                 <h3 class="font-semibold mb-3">Legal</h3>
                 <ul class="space-y-2">
@@ -373,11 +440,11 @@
                   <li><a href="#" class="text-gray-400 hover:text-primary">Intellectual Property</a></li>
                 </ul>
               </div>
-              
-           
+
+
             </div>
           </div>
-          
+
           <!-- Social Links -->
           <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-dark-light">
             <p class="text-gray-400  md:mb-0">&copy; 2025 Naked Reels. All rights reserved.</p>
@@ -388,23 +455,23 @@
   </div>
 
   <!-- Initialize Lucide Icons -->
-   {% block js %}
-   {% endblock %}
+  {% block js %}
+  {% endblock %}
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       lucide.createIcons();
-      
+
       // Mobile sidebar toggle
       const sidebarToggle = document.getElementById('sidebarToggle');
       const sidebar = document.getElementById('sidebar');
-      
+
 
       const sidebarToggl = document.getElementById('sidebarToggl');
 
 
 
 
-      sidebarToggle.addEventListener('click', function() {
+      sidebarToggle.addEventListener('click', function () {
         if (sidebar.classList.contains('-translate-x-full')) {
           sidebar.classList.remove('-translate-x-full');
           sidebar.classList.add('translate-x-0');
@@ -415,7 +482,7 @@
       });
 
 
-sidebarToggl.addEventListener('click', function() {
+      sidebarToggl.addEventListener('click', function () {
         if (sidebar.classList.contains('-translate-x-full')) {
           sidebar.classList.remove('-translate-x-full');
           sidebar.classList.add('translate-x-0');
@@ -426,86 +493,86 @@ sidebarToggl.addEventListener('click', function() {
       });
 
 
-  const input = document.getElementById("searchInputPC");
+      const input = document.getElementById("searchInputPC");
 
-  input.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-      const query = input.value.trim();
-      if (query !== "") {
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
-      }
-    }
-  });
-
-
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          const query = input.value.trim();
+          if (query !== "") {
+            window.location.href = `/search?q=${encodeURIComponent(query)}`;
+          }
+        }
+      });
 
 
-const searchButton = document.getElementById('searchButton');
-    const closeSearchModal = document.getElementById('closeSearchModal');
-    const searchModal = document.getElementById('searchModal');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const searchInput = document.getElementById('searchInput');
-    const clearSearch = document.getElementById('clearSearch');
-    const searchTerms = document.querySelectorAll('.search-term');
-    
-    // Open search modal
-    searchButton.addEventListener('click', function() {
-      searchModal.classList.add('active');
-      modalBackdrop.classList.add('active');
-      // Auto focus the search input
-      setTimeout(() => {
-        searchInput.focus();
-      }, 300);
-    });
-    
-    // Close search modal
-    closeSearchModal.addEventListener('click', function() {
-      searchModal.classList.remove('active');
-      modalBackdrop.classList.remove('active');
-      searchInput.value = '';
-      clearSearch.classList.add('hidden');
-    });
-    
-    // Close modal when clicking backdrop
-    modalBackdrop.addEventListener('click', function() {
-      searchModal.classList.remove('active');
-      modalBackdrop.classList.remove('active');
-      searchInput.value = '';
-      clearSearch.classList.add('hidden');
-    });
-    
-    // Show/hide clear button based on input
-    searchInput.addEventListener('input', function() {
-      if (this.value.length > 0) {
-        clearSearch.classList.remove('hidden');
-      } else {
+
+
+      const searchButton = document.getElementById('searchButton');
+      const closeSearchModal = document.getElementById('closeSearchModal');
+      const searchModal = document.getElementById('searchModal');
+      const modalBackdrop = document.getElementById('modalBackdrop');
+      const searchInput = document.getElementById('searchInput');
+      const clearSearch = document.getElementById('clearSearch');
+      const searchTerms = document.querySelectorAll('.search-term');
+
+      // Open search modal
+      searchButton.addEventListener('click', function () {
+        searchModal.classList.add('active');
+        modalBackdrop.classList.add('active');
+        // Auto focus the search input
+        setTimeout(() => {
+          searchInput.focus();
+        }, 300);
+      });
+
+      // Close search modal
+      closeSearchModal.addEventListener('click', function () {
+        searchModal.classList.remove('active');
+        modalBackdrop.classList.remove('active');
+        searchInput.value = '';
         clearSearch.classList.add('hidden');
-      }
-    });
-    
-    // Clear search input
-    clearSearch.addEventListener('click', function() {
-      searchInput.value = '';
-      clearSearch.classList.add('hidden');
-      searchInput.focus();
-    });
-    
-    // Handle search submission
-    searchInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && this.value.trim().length > 0) {
-        // Redirect to search page with query parameter
-        window.location.href = `/search?q=${encodeURIComponent(this.value.trim())}`;
-      }
-    });
-    
-    // Handle trending search terms click
-    searchTerms.forEach(term => {
-      term.addEventListener('click', function() {
-        const searchText = this.textContent.trim();
-        // Redirect to search page with query parameter
-        window.location.href = `/search?q=${encodeURIComponent(searchText)}`;
       });
-    });
+
+      // Close modal when clicking backdrop
+      modalBackdrop.addEventListener('click', function () {
+        searchModal.classList.remove('active');
+        modalBackdrop.classList.remove('active');
+        searchInput.value = '';
+        clearSearch.classList.add('hidden');
+      });
+
+      // Show/hide clear button based on input
+      searchInput.addEventListener('input', function () {
+        if (this.value.length > 0) {
+          clearSearch.classList.remove('hidden');
+        } else {
+          clearSearch.classList.add('hidden');
+        }
+      });
+
+      // Clear search input
+      clearSearch.addEventListener('click', function () {
+        searchInput.value = '';
+        clearSearch.classList.add('hidden');
+        searchInput.focus();
+      });
+
+      // Handle search submission
+      searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && this.value.trim().length > 0) {
+          // Redirect to search page with query parameter
+          window.location.href = `/search?q=${encodeURIComponent(this.value.trim())}`;
+        }
+      });
+
+      // Handle trending search terms click
+      searchTerms.forEach(term => {
+        term.addEventListener('click', function () {
+          const searchText = this.textContent.trim();
+          // Redirect to search page with query parameter
+          window.location.href = `/search?q=${encodeURIComponent(searchText)}`;
+        });
+      });
 
 
 
@@ -514,4 +581,5 @@ const searchButton = document.getElementById('searchButton');
     });
   </script>
 </body>
+
 </html>
