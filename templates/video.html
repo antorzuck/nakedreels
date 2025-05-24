@@ -248,7 +248,7 @@ background-color: black;
           <i data-lucide="play-circle" class="w-5 h-5"></i> Up Next
         </h3>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {% for vid in next_videos %}
+          {% for vid in up_next_videos %}
           <a href="/video/{{vid.slug}}">
             <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
               <div class="aspect-[9/16] bg-dark-light overflow-hidden">

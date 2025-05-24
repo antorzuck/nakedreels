@@ -106,7 +106,7 @@ def user_profile(request, username):
     page_obj = paginator.get_page(page_number)
 
     followed_profiles = request.session.get('followed_profiles', [])
-    has_followed = str(video.profile.id) in followed_profiles
+    has_followed = str(profile.id) in followed_profiles
 
 
     return render(request, 'profile.html', {
@@ -226,6 +226,8 @@ def robots_txt(request):
         "Sitemap: https://nakedreels.com/sitemap-static.xml",
         "Sitemap: https://nakedreels.com/sitemap-video.xml",
         "Sitemap: https://nakedreels.com/sitemap-category.xml",
+        "Sitemap: https://nakedreels.com/sitemap-profile.xml",
+        "Sitemap: https://nakedreels.com/sitemap-search.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
