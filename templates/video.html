@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 
-
 {% block title %}{{ video.title }}{% endblock %}
 
 {% block meta_description %}{{ video.description|truncatewords:25 }}{% endblock %}
@@ -238,16 +237,16 @@ background-color: black;
         </div>
         {% endif %}
       </div>
-    </div>
+    
 
     <!-- Sidebar Column -->
-    <div class="lg:col-span-1">
+    <div class="l">
       <!-- Related Videos Section -->
       <div class="up-next-videos sticky top-6">
         <h3 class="text-xl font-bold flex items-center gap-2 mb-4">
           <i data-lucide="play-circle" class="w-5 h-5"></i> Up Next
         </h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
           {% for vid in up_next_videos %}
           <a href="/video/{{vid.slug}}">
             <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
@@ -281,6 +280,11 @@ background-color: black;
           {% endfor %}
         </div>
       </div>
+    </div>
+    </div>
+
+    <div class="col-span-1">
+      banner ads
     </div>
   </div>
 </div>
@@ -326,8 +330,7 @@ background-color: black;
   );
 
   player.on('play', () => {
-    adDisplayContainer.initialize();
-    adsLoader.requestAds(adsRequest);
+
   });
 
 

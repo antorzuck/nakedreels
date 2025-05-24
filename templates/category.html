@@ -2,17 +2,17 @@
 
 {% block title %}{{ category.name }} Videos – Naked Reels{% endblock %}
 
-{% block meta_description %}{{ category.description|default:"Watch the best videos in the " ~ category.name ~ " category on Naked Reels."|truncatewords:25 }}{% endblock %}
+{% block meta_description %}{% if category.description %}{{ category.description|truncatewords:25 }}{% else %}Watch the best videos in the {{ category.name }} category on Naked Reels.{% endif %}{% endblock %}
 
 {% block og_title %}{{ category.name }} Videos – Naked Reels{% endblock %}
 
-{% block og_description %}{{ category.description|default:"Discover and watch amazing " ~ category.name ~ " videos on Naked Reels."|truncatewords:25 }}{% endblock %}
+{% block og_description %}{% if category.description %}{{ category.description|truncatewords:25 }}{% else %}Watch the best videos in the {{ category.name }} category on Naked Reels.{% endif %}{% endblock %}
 
 {% block og_image %}https://nakedreels.com/static/logo/nakedreels-og.jpg{% endblock %}
 
 {% block twitter_title %}{{ category.name }} Videos – Naked Reels{% endblock %}
 
-{% block twitter_description %}{{ category.description|default:"Explore top " ~ category.name ~ " videos on Naked Reels."|truncatewords:25 }}{% endblock %}
+{% block twitter_description %}{% if category.description %}{{ category.description|truncatewords:25 }}{% else %}Watch the best videos in the {{ category.name }} category on Naked Reels.{% endif %}{% endblock %}
 
 {% block twitter_image %}https://nakedreels.com/static/logo/nakedreels-og.jpg{% endblock %}
 
@@ -22,9 +22,9 @@
       "@context": "https://schema.org",
       "@type": "Collection",
       "name": "{{ category.name|escapejs }}",
-      "description": "{{ category.description|default:'Collection of videos in ' ~ category.name|truncatewords:25|escapejs }}",
+      "description": "{% if category.description %}{{ category.description|truncatewords:25 }}{% else %}Watch the best videos in the {{ category.name }} category on Naked Reels.{% endif %}",
       "url": "{{ request.build_absolute_uri }}",
-      "image": "https://nakedreels.com/static/logo/nakedreels-og.jpg"
+      "image": "https://nakedreels.com/static/logo/naked-reels.png"
     }
   </script>
 {% endblock %}

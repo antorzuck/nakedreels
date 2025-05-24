@@ -79,7 +79,7 @@ def upload_video(request):
 def home(request):
    
     all_recent_videos = Video.objects.all().order_by('-created_at')
-    paginator = Paginator(all_recent_videos, 2)  
+    paginator = Paginator(all_recent_videos, 20)  
     page_number = request.GET.get('page')
     recent_videos = paginator.get_page(page_number)
 

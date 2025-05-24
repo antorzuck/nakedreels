@@ -31,6 +31,8 @@ class Profile(BaseModel):
     avatar = models.FileField(upload_to='avatars/', blank=True)
     follow_count = models.PositiveIntegerField(default=0)
 
+    onlyfans = models.URLField(null=True, blank=True)
+
     def __str__(self):
         return self.user.username
 
@@ -38,6 +40,7 @@ class Profile(BaseModel):
 class Category(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(unique=True, blank=True)
+    description = models.TextField()
 
     def save(self, *args, **kwargs):
         if not self.slug:

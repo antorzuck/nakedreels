@@ -3,17 +3,17 @@
 
 {% block title %}{{ profile.user.username }} on Naked Reels{% endblock %}
 
-{% block meta_description %}{{ profile.bio|default:"Watch all videos by " ~ profile.user.username ~ " on Naked Reels."|truncatewords:25 }}{% endblock %}
+{% block meta_description %}{% if profile.bio %}{{ profile.bio|truncatewords:25 }}{% else %}Watch all videos by {{ profile.user.username }} on Naked Reels.{% endif %}{% endblock %}
 
 {% block og_title %}{{ profile.user.username }} on Naked Reels{% endblock %}
 
-{% block og_description %}{{ profile.bio|default:"Follow and watch videos from " ~ profile.user.username ~ " on Naked Reels."|truncatewords:25 }}{% endblock %}
+{% block og_description %}{% if profile.bio %}{{ profile.bio|truncatewords:25 }}{% else %}Watch all videos by {{ profile.user.username }} on Naked Reels. {% endif %}{% endblock %}
 
 {% block og_image %}{% if profile.avatar %}https://nakedreels.com{{ profile.avatar.url }}{% else %}https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}{% endif %}{% endblock %}
 
 {% block twitter_title %}{{ profile.user.username }} – Creator on Naked Reels{% endblock %}
 
-{% block twitter_description %}{{ profile.bio|default:"Discover and enjoy content by " ~ profile.user.username ~ " on Naked Reels."|truncatewords:25 }}{% endblock %}
+{% block twitter_description %}{% if profile.bio %}{{ profile.bio|truncatewords:25 }}{% else %}Watch all videos by {{ profile.user.username }} on Naked Reels.{% endif %}{% endblock %}
 
 {% block twitter_image %}{% if profile.avatar %}https://nakedreels.com{{ profile.avatar.url }}{% else %}https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}{% endif %}{% endblock %}
 
@@ -87,8 +87,8 @@
 
         <!-- Social Media Icons -->
         <div class="flex gap-2 sm:gap-3 mt-3 sm:mt-4">
-          {% if profile %}
-          <a href="{{ profile.instagram }}" class="bg-dark-lighter rounded-full hover:bg-primary hover:text-dark flex items-center justify-center gap-1 p-1.5 text-sm transition-colors">
+          {% if profile.onlyfans %}
+          <a href="{{ profile.onlyfans }}" class="bg-dark-lighter rounded-full hover:bg-primary hover:text-dark flex items-center justify-center gap-1 p-1.5 text-sm transition-colors">
             <i data-lucide="gem" class="w-4 h-4"></i> <span>OnlyFans</span>
           </a>
           {% endif %}
