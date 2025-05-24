@@ -11,13 +11,56 @@
   <meta name="keywords" content="nude shorts, NSFW TikTok, naked reels, uncensored videos, trending nudes, nude short">
   <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}Naked Reels – Raw, Real & Unfiltered{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Watch and share unfiltered real videos on Naked Reels – the ultimate platform for raw visual storytelling.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ STATIC_URL }}images/nakedreels-og.jpg{% endblock %}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:title" content="{% block twitter_title %}Naked Reels – Raw, Real & Unfiltered{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Watch and share unfiltered real videos on Naked Reels – the ultimate platform for raw visual storytelling.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ STATIC_URL }}images/nakedreels-twitter.jpg{% endblock %}">
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicons -->
+    <link rel="icon" href="{% static 'logo/naked-reels.png' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+
+
+
+      {% block head %}
+ 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Naked Reels",
+      "url": "https://nakedreels.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://nakedreels.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+
+  {% endblock %}
+
+
+
+
 
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  {% block head %}
-  {% endblock %}
   <script>
     tailwind.config = {
       darkMode: 'class',
