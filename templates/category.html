@@ -1,5 +1,41 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ category.name }} Videos – Naked Reels{% endblock %}
+
+{% block meta_description %}{{ category.description|default:"Watch the best videos in the " ~ category.name ~ " category on Naked Reels."|truncatewords:25 }}{% endblock %}
+
+{% block og_title %}{{ category.name }} Videos – Naked Reels{% endblock %}
+
+{% block og_description %}{{ category.description|default:"Discover and watch amazing " ~ category.name ~ " videos on Naked Reels."|truncatewords:25 }}{% endblock %}
+
+{% block og_image %}https://nakedreels.com/static/logo/nakedreels-og.jpg{% endblock %}
+
+{% block twitter_title %}{{ category.name }} Videos – Naked Reels{% endblock %}
+
+{% block twitter_description %}{{ category.description|default:"Explore top " ~ category.name ~ " videos on Naked Reels."|truncatewords:25 }}{% endblock %}
+
+{% block twitter_image %}https://nakedreels.com/static/logo/nakedreels-og.jpg{% endblock %}
+
+{% block head %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Collection",
+      "name": "{{ category.name|escapejs }}",
+      "description": "{{ category.description|default:'Collection of videos in ' ~ category.name|truncatewords:25|escapejs }}",
+      "url": "{{ request.build_absolute_uri }}",
+      "image": "https://nakedreels.com/static/logo/nakedreels-og.jpg"
+    }
+  </script>
+{% endblock %}
+
+
+
+
+
+
+
+
 {% block body %}
 <!-- Main Content -->
 <main class="pb-20">

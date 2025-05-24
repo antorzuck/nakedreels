@@ -1,5 +1,38 @@
 {% extends 'base.html' %}
 
+
+{% block title %}{{ profile.user.username }} on Naked Reels{% endblock %}
+
+{% block meta_description %}{{ profile.bio|default:"Watch all videos by " ~ profile.user.username ~ " on Naked Reels."|truncatewords:25 }}{% endblock %}
+
+{% block og_title %}{{ profile.user.username }} on Naked Reels{% endblock %}
+
+{% block og_description %}{{ profile.bio|default:"Follow and watch videos from " ~ profile.user.username ~ " on Naked Reels."|truncatewords:25 }}{% endblock %}
+
+{% block og_image %}{% if profile.avatar %}https://nakedreels.com{{ profile.avatar.url }}{% else %}https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}{% endif %}{% endblock %}
+
+{% block twitter_title %}{{ profile.user.username }} – Creator on Naked Reels{% endblock %}
+
+{% block twitter_description %}{{ profile.bio|default:"Discover and enjoy content by " ~ profile.user.username ~ " on Naked Reels."|truncatewords:25 }}{% endblock %}
+
+{% block twitter_image %}{% if profile.avatar %}https://nakedreels.com{{ profile.avatar.url }}{% else %}https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}{% endif %}{% endblock %}
+
+{% block head %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "{{ profile.user.username|escapejs }}",
+      "description": "{{ profile.bio|truncatewords:25|escapejs }}",
+      "url": "{{ request.build_absolute_uri }}",
+      "image": "{% if profile.avatar %}https://nakedreels.com{{ profile.avatar.url }}{% else %}https://api.dicebear.com/9.x/thumbs/svg?seed={{profile.user.username}}{% endif %}"
+    }
+  </script>
+{% endblock %}
+
+
+
+
 {% block css %}
 
 
@@ -36,7 +69,7 @@
       <div class="flex justify-end pt-2 sm:pt-4 mb-8 sm:mb-12">
         <button onclick="followUser('{{profile.id}}')" class="folw px-4 sm:px-8 py-1.5 sm:py-2 bg-primary text-dark font-medium rounded-full hover:bg-secondary transition-colors flex items-center text-sm sm:text-base">
           <i data-lucide="heart" class="mx-1"></i> 
-          <span >Follow</span>
+          <span >{% if has_followed %}Unfollow{% else %}Follow{% endif %}</span>
         </button>
         <button class="ml-2 p-1.5 sm:p-2 bg-dark-light rounded-full hover:bg-dark-lighter">
           <i data-lucide="more-vertical" class="w-4 h-4 sm:w-5 sm:h-5"></i>
@@ -72,9 +105,7 @@
       <button class="tab-active px-4 sm:px-6 py-2 sm:py-3 font-medium border-b-2 flex items-center whitespace-nowrap">
         <span>Home</span>
       </button>
-      <button class="px-4 sm:px-6 py-2 sm:py-3 font-medium text-gray-400 border-b-2 border-transparent hover:text-white flex items-center whitespace-nowrap">
-        <span>About</span>
-      </button>
+      
       
     </div>
   </div>

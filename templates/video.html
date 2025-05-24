@@ -2,45 +2,21 @@
 
 
 
-{% block title %}
-    {{ video.title }} – Watch Now on Naked Reels
-{% endblock %}
+{% block title %}{{ video.title }}{% endblock %}
 
-{% block meta_description %}
-    {{ video.description|truncatewords:25 }}
-{% endblock %}
+{% block meta_description %}{{ video.description|truncatewords:25 }}{% endblock %}
 
-{% block og_title %}
-    {{ video.title }} – Naked Reels
-{% endblock %}
+{% block og_title %}{{ video.title }} – Naked Reels{% endblock %}
 
-{% block og_description %}
-    {{ video.description|truncatewords:25 }}
-{% endblock %}
+{% block og_description %}{{ video.description|truncatewords:25 }}{% endblock %}
 
-{% block og_image %}
-    {% if video.thumbnail %}
-        {{ video.thumbnail.url }}
-    {% else %}
-        {{ STATIC_URL }}images/default-video-thumbnail.jpg
-    {% endif %}
-{% endblock %}
+{% block og_image %}{% if video.thumbnail %}https://nakedreels.com{{ video.thumbnail.url }}{% else %}https://nakedreels.com/static/logo/naked-reels.png{% endif %}{% endblock %}
 
-{% block twitter_title %}
-    {{ video.title }} – Naked Reels
-{% endblock %}
+{% block twitter_title %}{{ video.title }} – Naked Reels{% endblock %}
 
-{% block twitter_description %}
-    {{ video.description|truncatewords:25 }}
-{% endblock %}
+{% block twitter_description %}{{ video.description|truncatewords:25 }}{% endblock %}
 
-{% block twitter_image %}
-    {% if video.thumbnail %}
-        {{ video.thumbnail.url }}
-    {% else %}
-        {{ STATIC_URL }}images/default-video-thumbnail.jpg
-    {% endif %}
-{% endblock %}
+{% block twitter_image %}{% if video.thumbnail %}https://nakedreels.com{{ video.thumbnail.url }}{% else %}https://nakedreels.com/static/logo/naked-reels.png{% endif %}{% endblock %}
 
 
 
@@ -53,10 +29,10 @@
     "@type": "VideoObject",
     "name": "{{ video.title|escapejs }}",
     "description": "{{ video.description|truncatewords:25|escapejs }}",
-    "thumbnailUrl": "{% if video.thumbnail %}{{ video.thumbnail.url }}{% else %}{{ STATIC_URL }}images/default-video-thumbnail.jpg{% endif %}",
+    "thumbnailUrl": "{% if video.thumbnail %}{{ video.thumbnail.url }}{% else %}https://nakedreels.com/static/logo/naked-reels.png{% endif %}",
     "uploadDate": "{{ video.created_at|date:'Y-m-d' }}",
     "contentUrl": "{{ video.video_file.url }}",
-    "embedUrl": "https://nakedreels.com/embed/{{ video.slug }}",
+    "embedUrl": "https://nakedreels.com/video/{{ video.slug }}",
     "interactionStatistic": {
       "@type": "InteractionCounter",
       "interactionType": "https://schema.org/WatchAction",
@@ -70,51 +46,51 @@
 {% block css %}
 
 :root {
-  --plyr-color-main: #FF9900;
+--plyr-color-main: #FF9900;
 }
 
 .plyr--video {
-  border-radius: 12px;
-  overflow: hidden;
+border-radius: 12px;
+overflow: hidden;
 }
 
 .plyrcontrols button {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  padding: 0;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+padding: 0;
 }
 
 .plyr__controls svg {
-  width: 20px;
-  height: 20px;
+width: 20px;
+height: 20px;
 }
 
 /* Main wrapper: full width, portrait ratio */
 .video-wrapper {
-  width: 100%;
-  max-width: 100%;
-  margin: auto;
-  position: relative;
-  aspect-ratio: 9 / 16;
-  background-color: black;
+width: 100%;
+max-width: 100%;
+margin: auto;
+position: relative;
+aspect-ratio: 9 / 16;
+background-color: black;
 
-  max-height: 70vh;
+max-height: 70vh;
 }
 
 /* Plyr player fills wrapper */
 .plyr {
-  width: 100% !important;
-  height: 100% !important;
-  background-color: black;
+width: 100% !important;
+height: 100% !important;
+background-color: black;
 }
 
 /* Video fits inside player, full portrait, not cropped */
 video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain !important;
-  background-color: black;
+width: 100%;
+height: 100%;
+object-fit: contain !important;
+background-color: black;
 }
 
 {% endblock %}
@@ -126,14 +102,8 @@ video {
     <div class="lg:col-span-2">
       <!-- Video Player -->
       <div class="video-wrapper w-full rounded-lg overflow-hidden shadow-lg">
-        <video 
-          preload="metadata" 
-          id="player" 
-          playsinline 
-          controls 
-          poster="{{ video.thumbnail.url }}"
-          class="w-full aspect-video object-cover"
-        >
+        <video preload="metadata" id="player" playsinline controls poster="{{ video.thumbnail.url }}"
+          class="w-full aspect-video object-cover">
           <source src="{{ video.video_file.url }}" type="video/mp4" />
         </video>
       </div>
@@ -144,24 +114,26 @@ video {
         <div class="flex items-center justify-between mt-4 gap-4">
           <div class="flex items-center">
             <a class="flex" href="/onlyfans-model/{{video.profile.user.username}}">
-            <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-md">
+              <div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-md">
 
-              {% if video.profile.avatar %}
-              <img src="{{video.profile.avatar.url}}" alt="{{video.profile.user.username}}" class="rounded-full  h-full object-cover">
-              {% else %}
+                {% if video.profile.avatar %}
+                <img src="{{video.profile.avatar.url}}" alt="{{video.profile.user.username}}"
+                  class="rounded-full  h-full object-cover">
+                {% else %}
 
-              <img loading="lazy" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
-                alt="{{video.profile.user.username}}" class="w-full h-full object-cover rounded-full">
-              {% endif %}
-            </div>
-            <div class="ml-3">
-              <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
-              <p class="text-sm text-gray-400">{{ video.profile.follow_count }} followers</p>
-            </div>
-          </a>
+                <img loading="lazy" src="https://api.dicebear.com/9.x/thumbs/svg?seed={{video.profile.user.username}}"
+                  alt="{{video.profile.user.username}}" class="w-full h-full object-cover rounded-full">
+                {% endif %}
+              </div>
+              <div class="ml-3">
+                <p class="font-medium text-lg">@{{ video.profile.user.username }}</p>
+                <p class="text-sm text-gray-400">{{ video.profile.follow_count }} followers</p>
+              </div>
+            </a>
           </div>
-          <button onclick="followUser('{{video.profile.id}}')" class="px-6 py-2.5 folw bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
-              {% if has_followed %}Unfollow{% else %}Follow{% endif %}
+          <button onclick="followUser('{{video.profile.id}}')"
+            class="px-6 py-2.5 folw bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors shadow-md transform hover:scale-105 transition-transform duration-200 w-fit">
+            {% if has_followed %}Unfollow{% else %}Follow{% endif %}
           </button>
         </div>
       </div>
@@ -185,10 +157,12 @@ video {
           <!-- Action Buttons - Full width on mobile -->
           <div class="flex justify-between sm:justify-end gap-6 w-full sm:w-auto">
             {% if video.id|stringformat:"s" in liked_videos %}
-    <button onclick="likeVideo('{{ video.id }}')" class="text-primary liking flex items-center gap-1.5"><i data-lucide="heart-crack" class="w-5 h-5"></i><span>Unlike</span></button>
-  {% else %}
-    <button onclick="likeVideo('{{ video.id }}')" class="text-white liking flex items-center gap-1.5"><i data-lucide="heart" class="w-5 h-5"></i><span>Like</span></button>
-  {% endif %}
+            <button onclick="likeVideo('{{ video.id }}')" class="text-primary liking flex items-center gap-1.5"><i
+                data-lucide="heart-crack" class="w-5 h-5"></i><span>Unlike</span></button>
+            {% else %}
+            <button onclick="likeVideo('{{ video.id }}')" class="text-white liking flex items-center gap-1.5"><i
+                data-lucide="heart" class="w-5 h-5"></i><span>Like</span></button>
+            {% endif %}
 
             <button class="flex items-center gap-1.5 hover:text-primary transition-colors">
               <i data-lucide="share-2" class="w-5 h-5"></i><span>Share</span>
@@ -213,56 +187,55 @@ video {
         <h3 class="text-xl font-bold flex items-center gap-2">
           <i data-lucide="message-circle" class="w-5 h-5"></i> Comments
         </h3>
-        
+
         <!-- Comment Form -->
         <div class="mt-4 flex gap-3">
           <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
             <i data-lucide="user" class="w-5 h-5 text-dark"></i>
           </div>
           <div class="flex-1">
-            <textarea 
-              id="comment-text" 
+            <textarea id="comment-text"
               class="w-full bg-dark-lighter rounded-lg p-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="Add a comment..."
-              rows="2"
-            ></textarea>
+              placeholder="Add a comment..." rows="2"></textarea>
             <div class="flex justify-end mt-2">
-              <button  id="submit-comment" class="px-4 py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
+              <button id="submit-comment"
+                class="px-4 py-1.5 bg-primary text-dark rounded-full text-sm font-medium hover:bg-secondary transition-colors">
                 Comment
               </button>
             </div>
           </div>
         </div>
-        
+
         {% if comments %}
-          <ul id="comment-list" class="space-y-6 mt-6">
-            {% for comment in comments %}
-            <li class="border-b border-dark-light pb-4">
-              <div class="flex items-start gap-3">
-                <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{comment.name}}" alt="Profile" class="w-10 h-10 rounded-full">
-                <div class="flex-1">
-                  <div class="flex items-center gap-2">
-                    <p class="font-medium">{{ comment.name }}</p>
-                    <p class="text-xs text-gray-400">{{ comment.created_at|timesince }} ago</p>
-                  </div>
-                  <p class="mt-2 text-gray-300">{{ comment.text }}</p>
-                  <div class="flex gap-4 mt-2 text-sm text-gray-400">
-                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
-                      <i data-lucide="thumbs-up" class="w-4 h-4"></i> Like
-                    </button>
-                    <button class="flex items-center gap-1 hover:text-primary transition-colors">
-                      <i data-lucide="reply" class="w-4 h-4"></i> Reply
-                    </button>
-                  </div>
+        <ul id="comment-list" class="space-y-6 mt-6">
+          {% for comment in comments %}
+          <li class="border-b border-dark-light pb-4">
+            <div class="flex items-start gap-3">
+              <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{comment.name}}" alt="Profile"
+                class="w-10 h-10 rounded-full">
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <p class="font-medium">{{ comment.name }}</p>
+                  <p class="text-xs text-gray-400">{{ comment.created_at|timesince }} ago</p>
+                </div>
+                <p class="mt-2 text-gray-300">{{ comment.text }}</p>
+                <div class="flex gap-4 mt-2 text-sm text-gray-400">
+                  <button class="flex items-center gap-1 hover:text-primary transition-colors">
+                    <i data-lucide="thumbs-up" class="w-4 h-4"></i> Like
+                  </button>
+                  <button class="flex items-center gap-1 hover:text-primary transition-colors">
+                    <i data-lucide="reply" class="w-4 h-4"></i> Reply
+                  </button>
                 </div>
               </div>
-            </li>
-            {% endfor %}
-          </ul>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
         {% else %}
-          <div class="mt-6 p-4 bg-dark-lighter rounded-lg text-center">
-            <p class="text-gray-400">No comments yet. Be the first to comment!</p>
-          </div>
+        <div class="mt-6 p-4 bg-dark-lighter rounded-lg text-center">
+          <p class="text-gray-400">No comments yet. Be the first to comment!</p>
+        </div>
         {% endif %}
       </div>
     </div>
@@ -274,27 +247,37 @@ video {
         <h3 class="text-xl font-bold flex items-center gap-2 mb-4">
           <i data-lucide="play-circle" class="w-5 h-5"></i> Up Next
         </h3>
-        <div class="grid grid-cols-1 gap-4">
-          {% for up_video in up_next_videos %}
-          <div class="video-item group hover:bg-dark-lighter p-2 rounded-lg transition-colors">
-            <a href="/video/{{up_video.slug}}" class="flex gap-3">
-              <div class="w-40 h-24 rounded-lg overflow-hidden flex-shrink-0 relative">
-                <img 
-                  src="{{ up_video.thumbnail.url }}" 
-                  alt="{{ up_video.title }}" 
-                  class="w-full h-full object-cover"
-                >
-                <div class="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                  <i data-lucide="play" class="w-10 h-10 text-primary"></i>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {% for vid in next_videos %}
+          <a href="/video/{{vid.slug}}">
+            <div class="reel-card relative rounded-xl overflow-hidden group bg-dark-lighter">
+              <div class="aspect-[9/16] bg-dark-light overflow-hidden">
+                <img loading="lazy" src="{{ vid.thumbnail.url }}" alt="{{ vid.title }}"
+                  class="w-full h-full object-cover transition-transform duration-300">
+                <div class="absolute top-0 left-0 right-0 p-2 bg-gradient-to-b from-black/70 to-transparent">
+                  <div class="flex items-center">
+                    <div class="w-6 h-6 rounded-full flex items-center justify-center">
+                      {% if profile.avatar %}
+                  <img src="{{vid.profile.avatar.url}}" alt="Creator profile" class="w-full h-full object-cover rounded-full">
+                  {% else %}
+    
+                  <img src="https://api.dicebear.com/9.x/thumbs/svg?seed={{vid.profile.user.username}}"
+                    alt="{{vid.profile.user.username}}" class="w-full h-full object-cover rounded-full">
+                  {% endif %}
+                    </div>
+                    <span class="ml-2 text-sm font-medium">@{{ vid.profile.user.username }}</span>
+                  </div>
                 </div>
               </div>
-              <div class="flex-1">
-                <p class="font-medium line-clamp-2 group-hover:text-primary transition-colors">{{ up_video.title }}</p>
-                <p class="text-sm text-gray-400 mt-1">{{ up_video.views }} views</p>
-                <p class="text-xs text-gray-500 mt-1">@{{ up_video.profile.user.username }}</p>
+              <div class="p-2">
+                <h3 class="text-sm font-medium line-clamp-2">{{ vid.title }}</h3>
+                <div class="flex items-center mt-1 text-xs text-gray-400">
+                  <i data-lucide="eye" class="w-3.5 h-3.5 mr-1"></i>
+                  <span>{{ vid.views }} views</span>
+                </div>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
           {% endfor %}
         </div>
       </div>
@@ -303,122 +286,122 @@ video {
 </div>
 
 
-  {% block js %}
+{% block js %}
 
-  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
-  <!-- Google IMA SDK for VAST Ads -->
-  
-  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
-  
-  
+<!-- Google IMA SDK for VAST Ads -->
+
+<script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+
 <script>
- var player = new Plyr('#player');
+  var player = new Plyr('#player');
 
-// --- VAST Ad Setup ---
-var adDisplayContainer = new google.ima.AdDisplayContainer(
-  document.querySelector('.plyr__video-wrapper'),
-  player.media
-);
+  // --- VAST Ad Setup ---
+  var adDisplayContainer = new google.ima.AdDisplayContainer(
+    document.querySelector('.plyr__video-wrapper'),
+    player.media
+  );
 
-var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
-var adsRequest = new google.ima.AdsRequest();
+  var adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+  var adsRequest = new google.ima.AdsRequest();
 
-adsRequest.adTagUrl = 'https://vast.yomeno.xyz/vast?spot_id=14253'; // Your VAST tag
+  adsRequest.adTagUrl = 'https://vast.yomeno.xyz/vast?spot_id=14253'; // Your VAST tag
 
-adsLoader.addEventListener(
-  google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
-  (adsManagerLoadedEvent) => {
-    var adsManager = adsManagerLoadedEvent.getAdsManager(player.media);
+  adsLoader.addEventListener(
+    google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+    (adsManagerLoadedEvent) => {
+      var adsManager = adsManagerLoadedEvent.getAdsManager(player.media);
 
-    // Get actual player size
-    var playerWrapper = document.querySelector('.video-wrapper');
-    var width = playerWrapper.offsetWidth;
-    var height = playerWrapper.offsetHeight;
+      // Get actual player size
+      var playerWrapper = document.querySelector('.video-wrapper');
+      var width = playerWrapper.offsetWidth;
+      var height = playerWrapper.offsetHeight;
 
-    // Initialize and start ads with correct size
-    adsManager.init(width, height, google.ima.ViewMode.NORMAL);
-    adsManager.start();
-  }
-);
+      // Initialize and start ads with correct size
+      adsManager.init(width, height, google.ima.ViewMode.NORMAL);
+      adsManager.start();
+    }
+  );
 
-player.on('play', () => {
-  adDisplayContainer.initialize();
-  adsLoader.requestAds(adsRequest);
-});
-
-
-
-
-
-function likeVideo(videoId) {
-  fetch(`/like-video/${videoId}/`)
-    .then(response => response.json())
-    .then(data => {
-      const btn = document.querySelector('.liking');
-      if (data.liked) {
-        btn.innerHTML = '❤️ Unlike';
-        btn.classList.remove('text-primary');
-        btn.classList.add('text-white');
-      } else {
-        btn.innerHTML = '♡ Like';
-        btn.classList.remove('text-primary');
-        btn.classList.add('text-white');
-      }
-    });
-}
-
-function followUser(profileId, btn) {
-  fetch(`/follow-user/${profileId}/`)
-    .then(res => res.json())
-    .then(data => {
-      const btn = document.querySelector('.folw');
-      btn.textContent = data.followed ? 'Unfollow' : 'Follow';
-
-      // Optional: Update follower count somewhere on page if you have an element for it
-      const countDiv = document.getElementById(`follower-count-${profileId}`);
-      if (countDiv) {
-        countDiv.textContent = 'Followers: ' + data.follower_count;
-      }
-    })
-    .catch(() => alert('Error updating follow status'));
-}
+  player.on('play', () => {
+    adDisplayContainer.initialize();
+    adsLoader.requestAds(adsRequest);
+  });
 
 
 
 
-document.getElementById('submit-comment').addEventListener('click', async function () {
-  const text = document.getElementById('comment-text').value.trim();
-  const slug = "{{ video.slug }}"; // Ensure slug is available in the template
 
-  if (!text) {
-    alert("Please enter a comment.");
-    return;
+  function likeVideo(videoId) {
+    fetch(`/like-video/${videoId}/`)
+      .then(response => response.json())
+      .then(data => {
+        const btn = document.querySelector('.liking');
+        if (data.liked) {
+          btn.innerHTML = '❤️ Unlike';
+          btn.classList.remove('text-primary');
+          btn.classList.add('text-white');
+        } else {
+          btn.innerHTML = '♡ Like';
+          btn.classList.remove('text-primary');
+          btn.classList.add('text-white');
+        }
+      });
   }
 
-  const csrftoken = getCookie('csrftoken');
+  function followUser(profileId, btn) {
+    fetch(`/follow-user/${profileId}/`)
+      .then(res => res.json())
+      .then(data => {
+        const btn = document.querySelector('.folw');
+        btn.textContent = data.followed ? 'Unfollow' : 'Follow';
 
-  try {
-    const res = await fetch(`/video/${slug}/comment/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-CSRFToken': csrftoken
-      },
-      body: new URLSearchParams({ text })
-    });
+        // Optional: Update follower count somewhere on page if you have an element for it
+        const countDiv = document.getElementById(`follower-count-${profileId}`);
+        if (countDiv) {
+          countDiv.textContent = 'Followers: ' + data.follower_count;
+        }
+      })
+      .catch(() => alert('Error updating follow status'));
+  }
 
-    const data = await res.json();
 
-    if (data.status === 'success') {
-      // Clear textarea
-      document.getElementById('comment-text').value = '';
 
-      // Create new comment element
-      const commentList = document.getElementById('comment-list');
-      const li = document.createElement('li');
-      li.className = "border-b border-dark-light pb-4";
-      li.innerHTML = `
+
+  document.getElementById('submit-comment').addEventListener('click', async function () {
+    const text = document.getElementById('comment-text').value.trim();
+    const slug = "{{ video.slug }}"; // Ensure slug is available in the template
+
+    if (!text) {
+      alert("Please enter a comment.");
+      return;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    try {
+      const res = await fetch(`/video/${slug}/comment/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': csrftoken
+        },
+        body: new URLSearchParams({ text })
+      });
+
+      const data = await res.json();
+
+      if (data.status === 'success') {
+        // Clear textarea
+        document.getElementById('comment-text').value = '';
+
+        // Create new comment element
+        const commentList = document.getElementById('comment-list');
+        const li = document.createElement('li');
+        li.className = "border-b border-dark-light pb-4";
+        li.innerHTML = `
         <div class="flex items-start gap-3">
           <img src="" alt="Profile" class="w-10 h-10 rounded-full">
           <div class="flex-1">
@@ -438,34 +421,34 @@ document.getElementById('submit-comment').addEventListener('click', async functi
           </div>
         </div>
       `;
-      commentList.prepend(li); // Add the new comment at the top
-    } else {
-      alert('Failed to post comment.');
+        commentList.prepend(li); // Add the new comment at the top
+      } else {
+        alert('Failed to post comment.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error posting comment.');
     }
-  } catch (err) {
-    console.error(err);
-    alert('Error posting comment.');
-  }
-});
+  });
 
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-      cookie = cookie.trim();
-      if (cookie.startsWith(name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
       }
     }
+    return cookieValue;
   }
-  return cookieValue;
-}
 
 
 
 
-  </script>
-  {% endblock %}
+</script>
+{% endblock %}
 {% endblock %}

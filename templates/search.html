@@ -1,6 +1,35 @@
 {% extends 'base.html' %}
 
 
+{% block title %}Search results for "{{ query }}" – Naked Reels{% endblock %}
+
+{% block meta_description %}Showing videos matching "{{ query }}" on Naked Reels. Discover and watch your favorite content easily.{% endblock %}
+
+{% block og_title %}Search results for "{{ query }}" – Naked Reels{% endblock %}
+
+{% block og_description %}Explore videos related to "{{ query }}" on Naked Reels. Find trending and popular videos instantly.{% endblock %}
+
+{% block og_image %}https://nakedreels.com/static/logo/nakedreels-og.jpg{% endblock %}
+
+{% block twitter_title %}Search results for "{{ query }}" – Naked Reels{% endblock %}
+
+{% block twitter_description %}Find videos about "{{ query }}" on Naked Reels. Watch, like, and share the best content.{% endblock %}
+
+{% block twitter_image %}https://nakedreels.com/static/logo/nakedreels-og.jpg{% endblock %}
+
+{% block head %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Search results for {{ query|escapejs }}",
+      "description": "Videos matching the search term '{{ query|escapejs }}' on Naked Reels.",
+      "url": "{{ request.build_absolute_uri }}"
+    }
+  </script>
+{% endblock %}
+
+
 
 {% block css %}
 .ad-banner {

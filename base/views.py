@@ -105,9 +105,14 @@ def user_profile(request, username):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    followed_profiles = request.session.get('followed_profiles', [])
+    has_followed = str(video.profile.id) in followed_profiles
+
+
     return render(request, 'profile.html', {
         'profile': profile,
         'page_obj': page_obj,
+        'has_followed': has_followed,
     })
 
 
